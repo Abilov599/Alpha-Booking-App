@@ -1,5 +1,15 @@
+import Header from "./layouts/header/index";
+import Routing from "./routes";
+import Footer from "./layouts/footer";
+
 function App() {
-  return <div className="App"></div>;
+  return (
+    <>
+      <Header />
+      <Routing />
+      <Footer />
+    </>
+  );
 }
 
 export default App;
