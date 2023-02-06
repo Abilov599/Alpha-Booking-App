@@ -1,3 +1,83 @@
 header {
-    
+  background-color: transparent;
+  .container {
+    nav {
+      justify-content: space-between;
+      align-items: center;
+      display: flex;
+      a {
+        img {
+          height: 50px;
+        }
+      }
+      ul {
+        display: flex;
+        align-items: center;
+        .nav-items {
+          a {
+            line-height: 20px;
+            font-size: 15px;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            color: wheat;
+          }
+          padding: 40px 20px;
+        }
+        li {
+          .btn-orange {
+            transition: all 0.3s linear;
+            font-weight: 600;
+            font-size: 16px;
+            line-height: 50px;
+            border-radius: 0;
+            letter-spacing: 0.5px;
+            padding: 15px 30px;
+            background-color: white;
+            color: #f4a460;
+            &:hover {
+              background-color: #f4a460;
+              color: white;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.ant-space-item {
+  line-height: 20px;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  color: wheat;
+}
+
+.ant-dropdown-menu {
+  margin: 40px 0 !important;
+  margin-left: -25px !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  li {
+    border-radius: 0 !important;
+    border-bottom: solid 1px #edebeb;
+    &:hover {
+      background-color: #f4a460 !important;
+    }
+    a {
+      color: #515151;
+      transition: all 0.3s ease-in-out;
+      text-transform: none;
+      font-weight: 400;
+      font-size: 16px;
+      &:hover {
+        color: white !important;
+      }
+    }
+    span {
+      display: flex;
+      justify-content: flex-start;
+      padding: 7px 150px 7px 10px;
+    }
+  }
 }
