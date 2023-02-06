@@ -13,7 +13,7 @@ const Home = () => {
 
   console.log(data);
 
-  return <div>Home</div>;
+  return <main id="home">Home</main>;
 };
 
 export default Home;
