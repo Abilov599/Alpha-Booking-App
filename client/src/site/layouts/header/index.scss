@@ -1,25 +1,64 @@
 header {
-  background-color: transparent;
+  background-color: white;
+  position: relative;
+  border-bottom: 1px solid #ffffff4d;
+  &.bg-transparent {
+    background-color: transparent;
+  }
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -2%;
+    width: 27%;
+    height: 100px;
+    background-color: #fff;
+    transform: skew(23deg);
+  }
   .container {
     nav {
       justify-content: space-between;
       align-items: center;
       display: flex;
       a {
+        z-index: 1;
         img {
           height: 50px;
         }
       }
       ul {
+        gap: 10px;
         display: flex;
         align-items: center;
+        &.color-white {
+          .nav-items {
+            a {
+              color: white;
+            }
+            .ant-dropdown-trigger {
+              div {
+                color: white !important;
+              }
+            }
+          }
+        }
         .nav-items {
+          max-height: 100px;
+          .ant-dropdown-trigger {
+            div {
+              color: #f4a460 !important;
+            }
+          }
           a {
+            cursor: pointer;
             line-height: 20px;
             font-size: 15px;
             font-weight: 500;
             letter-spacing: 0.5px;
-            color: wheat;
+            color: #f4a460;
+            &:hover {
+              opacity: 0.8;
+            }
           }
           padding: 40px 20px;
         }
@@ -50,11 +89,11 @@ header {
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.5px;
-  color: wheat;
+  color: white;
 }
 
 .ant-dropdown-menu {
-  margin: 40px 0 !important;
+  margin: 37px 0 0 !important;
   margin-left: -25px !important;
   border-radius: 0 !important;
   padding: 0 !important;

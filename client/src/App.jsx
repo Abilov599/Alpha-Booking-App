@@ -1,15 +1,11 @@
-import Header from "./layouts/header/index";
-import Routing from "./routes";
-import Footer from "./layouts/footer";
+import { RouterProvider } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
+import ROUTES from "./routes/index";
+
+const router = createBrowserRouter(ROUTES);
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Routing />
-      <Footer />
-    </>
-  );
+  return <RouterProvider router={router}></RouterProvider>;
 }
 
 export default App;

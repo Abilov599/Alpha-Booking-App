@@ -1,13 +1,28 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
-import Home from "../pages/home";
+import Home from "../site/pages/home";
+import SiteRoot from "./../site/root/index";
+import AdminRoot from "./../admin/root/index";
+import Rooms from "./../site/pages/rooms/index";
 
-const Routing = () => {
-  return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-    </Routes>
-  );
-};
+const ROUTES = [
+  {
+    path: "/",
+    element: <SiteRoot />,
+    children: [
+      {
+        path: "",
+        element: <Home />,
+      },
+      {
+        path: "rooms",
+        element: <Rooms />,
+      },
+    ],
+  },
+  {
+    path: "/admin/",
+    element: <AdminRoot />,
+    children: [],
+  },
+];
 
-export default Routing;
+export default ROUTES;

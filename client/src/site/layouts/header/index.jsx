@@ -1,6 +1,6 @@
 import React from "react";
 import "./index.scss";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import siteLogo from "../../assets/images/logo/alpha-logo1.png";
@@ -29,14 +29,15 @@ const items = [
 ];
 
 const Header = () => {
+  const { pathname } = useLocation();
   return (
-    <header>
+    <header className={pathname == "/" ? "bg-transparent" : ""}>
       <div className="container">
         <nav>
           <Link to="/">
             <img src={siteLogo} alt="ALPHA" />
           </Link>
-          <ul>
+          <ul className={pathname === "/" ? "color-white" : ""}>
             <li className="nav-items">
               <NavLink to="/">HOME</NavLink>
             </li>
