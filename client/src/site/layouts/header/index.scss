@@ -32,8 +32,21 @@ header {
         align-items: center;
         &.color-white {
           .nav-items {
+            &:hover {
+              a {
+                color: white;
+              }
+              .ant-dropdown-trigger {
+                div {
+                  color: white !important;
+                }
+              }
+            }
             a {
               color: white;
+              &.active {
+                color: white;
+              }
             }
             .ant-dropdown-trigger {
               div {
@@ -45,8 +58,13 @@ header {
         .nav-items {
           max-height: 100px;
           .ant-dropdown-trigger {
+            &:hover {
+              div {
+                color: #f4a460 !important;
+              }
+            }
             div {
-              color: #f4a460 !important;
+              color: #515151 !important;
             }
           }
           a {
@@ -55,8 +73,12 @@ header {
             font-size: 15px;
             font-weight: 500;
             letter-spacing: 0.5px;
-            color: #f4a460;
+            color: #515151;
+            &.active {
+              color: #f4a460;
+            }
             &:hover {
+              color: #f4a460;
               opacity: 0.8;
             }
           }
@@ -77,6 +99,57 @@ header {
               background-color: #f4a460;
               color: white;
             }
+          }
+          .btn-none {
+            display: none;
+          }
+          .py-5 {
+            position: relative;
+            &:hover {
+              i {
+                color: #f4a460 !important;
+              }
+            }
+            .search-click {
+              cursor: pointer;
+              border: none;
+              outline: none;
+              background-size: 22px;
+              background-position: 13px;
+              border-radius: 5px;
+              width: 50px;
+              padding: 10px 25px;
+              font-size: 15px;
+              transition: all 0.5s;
+              &:focus {
+                cursor: text;
+                border: 0.5px solid #ccc;
+                width: 300px;
+                padding: 10px 0px 10px 50px;
+              }
+            }
+            i {
+              transition: all 0.3s linear;
+              color: #515151 !important;
+              position: absolute;
+              left: 39px;
+              top: 13.5px;
+            }
+            // .search-click {
+            //   position: relative;
+            //   overflow: hidden;
+            //   height: 50px;
+            // }
+            // .search-click input {
+            //   background: transparent;
+            //   border: 0.5px solid #ccc;
+            //   outline: none;
+            //   position: absolute;
+            //   width: 300px;
+            //   height: 50px;
+            //   left: 0%;
+            //   padding: 25px;
+            // }
           }
         }
       }

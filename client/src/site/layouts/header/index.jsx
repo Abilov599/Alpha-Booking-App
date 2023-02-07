@@ -3,6 +3,7 @@ import "./index.scss";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
+import { MDBContainer } from "mdb-react-ui-kit";
 import siteLogo from "../../assets/images/logo/alpha-logo1.png";
 
 const items = [
@@ -65,10 +66,25 @@ const Header = () => {
               <NavLink to="/contact">CONTACT</NavLink>
             </li>
             <li>
-              <NavLink to="/booking-system" className="btn-orange">
+              <NavLink
+                to="/booking-system"
+                className={pathname === "/" ? "btn-orange" : "btn-none"}
+              >
                 Booking System
               </NavLink>
             </li>
+            {pathname === "/rooms" ? (
+              <li>
+                <MDBContainer className="py-5">
+                  <input
+                    type="text"
+                    className="search-click"
+                    placeholder="Search ..."
+                  />
+                  <i className="fa-solid fa-magnifying-glass"></i>
+                </MDBContainer>
+              </li>
+            ) : null}
           </ul>
         </nav>
       </div>
