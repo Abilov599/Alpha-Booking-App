@@ -33,6 +33,7 @@ header {
         &.color-white {
           .nav-items {
             &:hover {
+              background-color: transparent;
               a {
                 color: white;
               }
@@ -56,6 +57,19 @@ header {
           }
         }
         .nav-items {
+          padding: 40px 20px;
+          &:hover {
+            background-color: #f8f8f8;
+            .ant-dropdown-trigger {
+              div {
+                color: #f4a460 !important;
+              }
+            }
+            a {
+              color: #f4a460;
+              opacity: 0.8;
+            }
+          }
           max-height: 100px;
           .ant-dropdown-trigger {
             &:hover {
@@ -77,12 +91,7 @@ header {
             &.active {
               color: #f4a460;
             }
-            &:hover {
-              color: #f4a460;
-              opacity: 0.8;
-            }
           }
-          padding: 40px 20px;
         }
         li {
           .btn-orange {
