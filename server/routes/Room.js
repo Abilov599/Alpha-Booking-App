@@ -7,9 +7,9 @@ import {
 } from "./../controllers/Room.js";
 const router = express.Router();
 
-router.get("/", getAllRooms);
-router.get("/:id", getRoomById);
-router.post("/", postRoom);
-router.delete("/:id", deleteRoomById);
+router.get("/api/rooms/", getAllRooms);
+router.get("/api/rooms/:id", getRoomById);
+router.post("/api/rooms/", postRoom);
+router.delete("/api/rooms/:id", deleteRoomById);
 
 export { router as RoomRoute };

@@ -8,10 +8,10 @@ import {
 } from "./../controllers/User.js";
 const router = express.Router();
 
-router.get("/", getAllUsers);
-router.get("/:id", getUserById);
-router.post("/register", registerUser);
-router.post("/login", loginUser);
-router.delete("/:id", deleteUserById);
+router.get("/api/users/", getAllUsers);
+router.get("/api/users/:id", getUserById);
+router.post("/api/users/register", registerUser);
+router.post("/api/users/login", loginUser);
+router.delete("/api/users/:id", deleteUserById);
 
 export { router as UserRoute };

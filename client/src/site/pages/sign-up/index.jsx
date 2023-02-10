@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { signUpSchema } from "./../../../schema/signUpSchema";
 import { Link } from "react-router-dom";
 import "./index.scss";
-import { ky } from 'ky';
+import ky from "ky";
 
 const SignUp = () => {
   return (
@@ -20,12 +20,17 @@ const SignUp = () => {
             }}
             validationSchema={signUpSchema}
             onSubmit={(values) => {
-              // same shape as initial values
-              console.log(values);
+              const obj = {
+                fullname: values.fullname,
+                email: values.email,
+                password: values.password,
+              };
               try {
-                ky.post()
+                ky.post("http://localhost:8080/api/users/register", {
+                  json: obj,
+                }).json();
               } catch (error) {
-                
+                throw error;
               }
             }}
           >
