@@ -1,11 +1,12 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { signUpSchema } from "./../../../schema/signUpSchema";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
 import ky from "ky";
 
 const SignUp = () => {
+  const navigate = useNavigate();
   return (
     <main id="singup-page">
       <section className="sign-up">
@@ -19,9 +20,13 @@ const SignUp = () => {
               confirmPassword: "",
             }}
             validationSchema={signUpSchema}
-            onSubmit={(values) => {
+            onSubmit={async (values) => {
               const obj = {
                 fullname: values.fullname,
+                email: values.email,
+                password: values.password,
+              };
+              const obj2 = {
                 email: values.email,
                 password: values.password,
               };

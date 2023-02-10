@@ -3,23 +3,35 @@ import { Formik, Form, Field } from "formik";
 import { logInSchema } from "./../../../schema/logInSchema";
 import { Link } from "react-router-dom";
 import "./index.scss";
+import axios from "axios";
 
 const SignIn = () => {
+  const login = async (values) => {
+    const obj = {
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/users/login",
+        obj
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
   return (
     <main id="singin-page">
       <section className="sign-in">
         <div className="form-inner">
-          <h3>Create an account</h3>
+          <h3>Sign into your account</h3>
           <Formik
             initialValues={{
               email: "",
               password: "",
             }}
             validationSchema={logInSchema}
-            onSubmit={(values) => {
-              // same shape as initial values
-              console.log(values);
-            }}
+            onSubmit={(values) => login(values)}
           >
             {({ errors, touched }) => (
               <Form>

@@ -40,11 +40,21 @@ export const registerUser = async (req, res) => {
 };
 
 export const loginUser = async (req, res) => {
+  const { email, password } = req.body;
   try {
-    const user = await new Users.findOne(req.body);
-    res.send(user);
-    res.status(200).send({ message: "SUCCESS" });
+    const user = await Users.findOne({ email: email, password: password });
+    if (user) {
+      const temp = {
+        fullname: user.fullname,
+        email: user.email,
+        isAdmin: user.isAdmin,
+        _id: user._id,
+      };
+      res.status(200).send(temp);
+    } else {
+      return res.status(400).send({ message: "Login Failed" });
+    }
   } catch (error) {
-    res.status(500).send({ message: error });
+    res.status(500).send({ error });
   }
 };
