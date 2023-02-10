@@ -7,6 +7,35 @@ import ky from "ky";
 
 const SignUp = () => {
   const navigate = useNavigate();
+  const signup = async (values) => {
+    const obj = {
+      fullname: values.fullname,
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      ky.post("http://localhost:8080/api/users/register", {
+        json: obj,
+      }).json();
+    } catch (error) {
+      throw error;
+    }
+  };
+
+  const login = async (values) => {
+    const obj = {
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      await ky
+        .post("http://localhost:8080/api/users/login", { json: obj })
+        .json();
+    } catch (error) {
+      throw error;
+    }
+  };
+
   return (
     <main id="singup-page">
       <section className="sign-up">
@@ -20,24 +49,9 @@ const SignUp = () => {
               confirmPassword: "",
             }}
             validationSchema={signUpSchema}
-            onSubmit={async (values) => {
-              const obj = {
-                fullname: values.fullname,
-                email: values.email,
-                password: values.password,
-              };
-              const obj2 = {
-                email: values.email,
-                password: values.password,
-              };
-              try {
-                ky.post("http://localhost:8080/api/users/register", {
-                  json: obj,
-                }).json();
-              } catch (error) {
-                throw error;
-              }
-            }}
+            onSubmit={async (values) =>
+              signup(values).then(() => login(values).then(() => navigate("/")))
+            }
           >
             {({ errors, touched }) => (
               <Form>

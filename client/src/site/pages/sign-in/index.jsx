@@ -1,21 +1,22 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import { logInSchema } from "./../../../schema/logInSchema";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
-import axios from "axios";
+import ky from "ky";
 
 const SignIn = () => {
-  const login = async (values) => {
+  const navigate = useNavigate();
+
+   const login = async (values) => {
     const obj = {
       email: values.email,
       password: values.password,
     };
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/users/login",
-        obj
-      );
+      await ky
+        .post("http://localhost:8080/api/users/login", { json: obj })
+        .json();
     } catch (error) {
       throw error;
     }
@@ -31,7 +32,7 @@ const SignIn = () => {
               password: "",
             }}
             validationSchema={logInSchema}
-            onSubmit={(values) => login(values)}
+            onSubmit={(values) => login(values).then(() => navigate("/"))}
           >
             {({ errors, touched }) => (
               <Form>
