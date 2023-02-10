@@ -67,7 +67,7 @@ const Header = () => {
             </li>
             <li>
               <NavLink
-                to="/booking-system"
+                to="sign-up"
                 className={pathname === "/" ? "btn-orange" : "btn-none"}
               >
                 Booking System

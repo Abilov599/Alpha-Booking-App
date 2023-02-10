@@ -29,10 +29,21 @@ export const deleteUserById = async (req, res) => {
   }
 };
 
-export const postUser = async (req, res) => {
+export const registerUser = async (req, res) => {
   try {
     const newUser = new Users(req.body);
     newUser.save();
+    res.status(500).send({ message: "SUCCESS" });
+  } catch (error) {
+    res.send({ message: error });
+  }
+};
+
+export const loginUser = async (req, res) => {
+  console.log(req.body);
+  try {
+    const user = await new Users.findOne(req.body);
+    res.send(user);
     res.status(500).send({ message: "SUCCESS" });
   } catch (error) {
     res.send({ message: error });

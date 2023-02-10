@@ -1,7 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import cors from "cors";
-import mongoose, { connect } from "mongoose";
+import mongoose from "mongoose";
 import bodyParser from "body-parser";
 import { RoomRoute } from "./routes/Room.js";
 import { UserRoute } from "./routes/User.js";
@@ -16,14 +16,14 @@ dotenv.config();
 mongoose.set("strictQuery", false);
 
 //Routes
-app.use(RoomRoute);
-app.use(UserRoute);
+app.use("/api/rooms", RoomRoute);
+app.use("/api/users", UserRoute);
 
 const PORT = process.env.PORT || 3000;
 const DB = process.env.DB_URL.replace("<password>", process.env.PASSWORD);
 
 // Connect MongoDB
-connect(
+mongoose.connect(
   DB,
   {
     useNewUrlParser: true,
@@ -37,6 +37,6 @@ connect(
     }
   },
   app.listen(PORT, () =>
-    console.log(`Example app listening on http://localhost:${PORT}/api/rooms`)
+    console.log(`Example app listening on http://localhost:${PORT}/api/users`)
   )
 );

@@ -3,13 +3,15 @@ import {
   deleteUserById,
   getAllUsers,
   getUserById,
-  postUser,
+  loginUser,
+  registerUser,
 } from "./../controllers/User.js";
 const router = express.Router();
 
-router.get("/api/users", getAllUsers);
-router.get("/api/users/:id", getUserById);
-router.post("/api/users", postUser);
-router.delete("/api/users/:id", deleteUserById);
+router.get("/", getAllUsers);
+router.get("/:id", getUserById);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.delete("/:id", deleteUserById);
 
 export { router as UserRoute };
