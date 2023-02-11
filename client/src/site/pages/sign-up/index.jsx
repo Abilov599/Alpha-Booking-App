@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import { signUpSchema } from "./../../../schema/signUpSchema";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
-import ky from "ky";
+import axios from "axios";
 
 const SignUp = () => {
   const navigate = useNavigate();
@@ -14,28 +14,30 @@ const SignUp = () => {
       password: values.password,
     };
     try {
-      ky.post("http://localhost:8080/api/users/register", {
-        json: obj,
-      }).json();
+      const res = await axios.post(
+        "http://localhost:8080/api/users/register",
+        obj
+      );
     } catch (error) {
       throw error;
     }
   };
 
-  // const login = async (values) => {
-  //   const obj = {
-  //     email: values.email,
-  //     password: values.password,
-  //   };
-  //   try {
-  //     const res = await ky
-  //       .post("http://localhost:8080/api/users/login", { json: obj })
-  //       .json();
-  //     localStorage.setItem("currentUser", JSON.stringify(res));
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // };
+  const login = async (values) => {
+    const obj = {
+      email: values.email,
+      password: values.password,
+    };
+    try {
+      const res = await axios.post(
+        "http://localhost:8080/api/users/login",
+        obj,
+        { withCredentials: true }
+      );
+    } catch (error) {
+      throw error;
+    }
+  };
 
   return (
     <main id="singup-page">
@@ -51,7 +53,7 @@ const SignUp = () => {
             }}
             validationSchema={signUpSchema}
             onSubmit={async (values) =>
-              signup(values).then(() => navigate("/sign-in"))
+              signup(values).then(() => login(values).then(() => navigate("/")))
             }
           >
             {({ errors, touched }) => (

@@ -3,7 +3,6 @@ import { Formik, Form, Field } from "formik";
 import { logInSchema } from "./../../../schema/logInSchema";
 import { Link, useNavigate } from "react-router-dom";
 import "./index.scss";
-import ky from "ky";
 import axios from "axios";
 
 const SignIn = () => {
@@ -20,14 +19,6 @@ const SignIn = () => {
         obj,
         { withCredentials: true }
       );
-      console.log(res);
-      // const res = await ky
-      //   .post(
-      //     "http://localhost:8080/api/users/login",
-      //     { credenti },
-      //     { json: obj }
-      //   )
-      //   .json();
     } catch (error) {
       throw error;
     }
@@ -43,7 +34,7 @@ const SignIn = () => {
               password: "",
             }}
             validationSchema={logInSchema}
-            onSubmit={(values) => login(values)}
+            onSubmit={(values) => login(values).then(() => navigate("/"))}
           >
             {({ errors, touched }) => (
               <Form>
