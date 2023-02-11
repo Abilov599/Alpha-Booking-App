@@ -3,7 +3,6 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
-import bodyParser from "body-parser";
 import { RoomRoute } from "./routes/Room.js";
 import { UserRoute } from "./routes/User.js";
 // import { multer } from "multer";
@@ -13,8 +12,6 @@ const app = express();
 app.use(cookieParser());
 app.use(express.json());
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
-// app.use(bodyParser.urlencoded({ extended: false }));
-// app.use(bodyParser.json());
 dotenv.config();
 mongoose.set("strictQuery", false);
 

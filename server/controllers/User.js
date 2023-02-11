@@ -1,8 +1,10 @@
 import { Users } from "./../models/User.js";
 import * as bcrypt from "bcrypt";
-import * as jwt from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
+
+const { sign, verify } = jwt;
 
 export const getAllUsers = async (_req, res) => {
   try {
@@ -35,8 +37,8 @@ export const deleteUserById = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   const { fullname, email, password } = req.body;
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  // const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const newUser = new Users({
       fullname: fullname,
@@ -62,13 +64,16 @@ export const loginUser = async (req, res) => {
     if (!(await bcrypt.compare(password, user.password))) {
       return res.status(400).send({ message: "Invalid cridentials" });
     }
-    const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
+    const token = sign({ _id: user._id }, process.env.SECRET_KEY, {
+      expiresIn: "2h",
+    });
+    user.token = token;
     res.cookie("jwt", token, {
       httpOnly: true,
       withCredentials: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
-    res.status(200).send(user);
+    res.status(200).send({ message: "SUCCESS" });
   } catch (error) {
     res.status(500).send({ message: error });
   }
@@ -76,7 +81,7 @@ export const loginUser = async (req, res) => {
 
 export const authUser = async (req, res) => {
   const cookie = req.cookies["jwt"];
-  const claims = jwt.verify(cookie, process.env.SECRET_KEY);
+  const claims = verify(cookie, process.env.SECRET_KEY);
   if (!claims) {
     return res.status(401).send({ message: "unauthenticated" });
   }
