@@ -62,7 +62,7 @@ export const loginUser = async (req, res) => {
     if (!(await bcrypt.compare(password, user.password))) {
       return res.status(400).send({ message: "Invalid cridentials" });
     }
-    const token = jwt.sign({ _id: user._id }, "process.env.SECRET_KEY");
+    const token = jwt.sign({ _id: user._id }, process.env.SECRET_KEY);
     res.cookie("jwt", token, {
       httpOnly: true,
       withCredentials: true,

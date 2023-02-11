@@ -9,11 +9,11 @@ import {
 } from "./../controllers/User.js";
 const router = express.Router();
 
-router.get("/api/users/", getAllUsers);
-router.get("/api/users/:id", getUserById);
-router.post("/api/users/register", registerUser);
-router.post("/api/users/login", loginUser);
-router.get("/api/users/user/", authUser);
-router.delete("/api/users/:id", deleteUserById);
+router.get("/", getAllUsers);
+router.get("/:id", getUserById);
+router.post("/register", registerUser);
+router.post("/login", loginUser);
+router.get("/user/", authUser);
+router.delete("/:id", deleteUserById);
 
 export { router as UserRoute };

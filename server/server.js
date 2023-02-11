@@ -11,15 +11,16 @@ import { UserRoute } from "./routes/User.js";
 //App config
 const app = express();
 app.use(cookieParser());
+app.use(express.json());
 app.use(cors({ credentials: true, origin: "http://localhost:5173" }));
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: false }));
+// app.use(bodyParser.json());
 dotenv.config();
 mongoose.set("strictQuery", false);
 
 //Routes
-app.use(RoomRoute);
-app.use(UserRoute);
+app.use("/api/rooms", RoomRoute);
+app.use("/api/users", UserRoute);
 
 const PORT = process.env.PORT || 3000;
 const DB = process.env.DB_URL.replace("<password>", process.env.PASSWORD);
