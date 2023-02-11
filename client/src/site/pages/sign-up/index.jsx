@@ -22,19 +22,20 @@ const SignUp = () => {
     }
   };
 
-  const login = async (values) => {
-    const obj = {
-      email: values.email,
-      password: values.password,
-    };
-    try {
-      await ky
-        .post("http://localhost:8080/api/users/login", { json: obj })
-        .json();
-    } catch (error) {
-      throw error;
-    }
-  };
+  // const login = async (values) => {
+  //   const obj = {
+  //     email: values.email,
+  //     password: values.password,
+  //   };
+  //   try {
+  //     const res = await ky
+  //       .post("http://localhost:8080/api/users/login", { json: obj })
+  //       .json();
+  //     localStorage.setItem("currentUser", JSON.stringify(res));
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // };
 
   return (
     <main id="singup-page">
@@ -50,7 +51,7 @@ const SignUp = () => {
             }}
             validationSchema={signUpSchema}
             onSubmit={async (values) =>
-              signup(values).then(() => login(values).then(() => navigate("/")))
+              signup(values).then(() => navigate("/sign-in"))
             }
           >
             {({ errors, touched }) => (

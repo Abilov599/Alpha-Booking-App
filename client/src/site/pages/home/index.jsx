@@ -7,14 +7,14 @@ import SearchForm from "./../../components/search-form/index";
 import { fetchData } from "./../../../redux/slice/dataSlice";
 
 const Home = () => {
-  const data = useSelector((state) => state.getDataSlice);
-  const dispatch = useDispatch();
+  // const data = useSelector((state) => state.getDataSlice);
+  // const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchData());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(fetchData());
+  // }, [dispatch]);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <main id="home">

@@ -1,4 +1,8 @@
 import { Users } from "./../models/User.js";
+import * as bcrypt from "bcrypt";
+import * as jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export const getAllUsers = async (_req, res) => {
   try {
@@ -30,10 +34,18 @@ export const deleteUserById = async (req, res) => {
 };
 
 export const registerUser = async (req, res) => {
+  const { fullname, email, password } = req.body;
+  const salt = await bcrypt.genSalt(10);
+  const hashedPassword = await bcrypt.hash(password, salt);
   try {
-    const newUser = new Users(req.body);
-    newUser.save();
-    res.status(200).send({ message: "SUCCESS" });
+    const newUser = new Users({
+      fullname: fullname,
+      email: email,
+      password: hashedPassword,
+    });
+    const result = await newUser.save();
+    const { password, ...data } = result.toJSON();
+    res.status(200).send(data);
   } catch (error) {
     res.status(500).send({ message: error });
   }
@@ -41,19 +53,37 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
+
   try {
-    const user = await Users.findOne({ email: email, password: password });
-    if (user) {
-      const temp = {
-        fullname: user.fullname,
-        email: user.email,
-        isAdmin: user.isAdmin,
-        _id: user._id,
-      };
-      res.status(200).send(temp);
-    } else {
-      return res.status(400).send({ message: "Login Failed" });
+    const user = await Users.findOne({ email: email });
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
     }
+    if (!(await bcrypt.compare(password, user.password))) {
+      return res.status(400).send({ message: "Invalid cridentials" });
+    }
+    const token = jwt.sign({ _id: user._id }, "process.env.SECRET_KEY");
+    res.cookie("jwt", token, {
+      httpOnly: true,
+      withCredentials: true,
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    res.status(200).send(user);
+  } catch (error) {
+    res.status(500).send({ message: error });
+  }
+};
+
+export const authUser = async (req, res) => {
+  const cookie = req.cookies["jwt"];
+  const claims = jwt.verify(cookie, process.env.SECRET_KEY);
+  if (!claims) {
+    return res.status(401).send({ message: "unauthenticated" });
+  }
+  try {
+    const user = await Users.findOne({ _id: claims._id });
+    const { password, ...data } = user.toJSON();
+    res.status(200).send(data);
   } catch (error) {
     res.status(500).send({ error });
   }
