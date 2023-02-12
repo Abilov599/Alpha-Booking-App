@@ -77,20 +77,21 @@ export const loginUser = async (req, res) => {
 };
 
 export const authUser = async (req, res) => {
-  const cookie = req.cookies["jwt"];
-  if (cookie) {
+  try {
+    const cookie = req.cookies["jwt"];
     const claims = verify(cookie, process.env.SECRET_KEY);
     if (!claims) {
       return res.status(401).send({ message: "unauthenticated" });
     }
-    try {
-      const user = await Users.findOne({ _id: claims._id });
-      const { password, ...data } = user.toJSON();
-      res.status(200).send(data);
-    } catch (error) {
-      res.status(500).send({ error });
-    }
-  } else {
-    return res.status(404).send({ message: "Sign In first" });
+    const user = await Users.findOne({ _id: claims._id });
+    const { password, ...data } = user.toJSON();
+    res.status(200).send(data);
+  } catch (error) {
+    return res.status(401).send({ message: "unauthenticated" });
   }
+};
+
+export const userLogout = async (_req, res) => {
+  res.cookie("jwt", "", { maxAge: 0 });
+  res.status(201).send({ message: "SUCCESS" });
 };

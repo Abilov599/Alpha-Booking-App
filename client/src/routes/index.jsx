@@ -13,7 +13,20 @@ import AdminLogin from "./../admin/pages/login/index";
 import axios from "axios";
 
 const Routing = () => {
+  const getUser = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8080/api/user", {
+        withCredentials: true,
+      });
+      console.log(data);
+    } catch (error) {
+      throw error;
+    }
+  };
 
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <Routes>
