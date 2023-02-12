@@ -15,7 +15,7 @@ const SignUp = () => {
     };
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/users/register",
+        "http://localhost:8080/api/register",
         obj
       );
     } catch (error) {
@@ -30,7 +30,7 @@ const SignUp = () => {
     };
     try {
       const res = await axios.post(
-        "http://localhost:8080/api/users/login",
+        "http://localhost:8080/api/login",
         obj,
         { withCredentials: true }
       );

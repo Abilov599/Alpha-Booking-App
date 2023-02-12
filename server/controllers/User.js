@@ -37,7 +37,6 @@ export const deleteUserById = async (req, res) => {
 
 export const registerUser = async (req, res) => {
   const { fullname, email, password } = req.body;
-  // const salt = await bcrypt.genSalt(10);
   const hashedPassword = await bcrypt.hash(password, 10);
   try {
     const newUser = new Users({
@@ -64,9 +63,7 @@ export const loginUser = async (req, res) => {
     if (!(await bcrypt.compare(password, user.password))) {
       return res.status(400).send({ message: "Invalid cridentials" });
     }
-    const token = sign({ _id: user._id }, process.env.SECRET_KEY, {
-      expiresIn: "2h",
-    });
+    const token = sign({ _id: user._id }, process.env.SECRET_KEY);
     user.token = token;
     res.cookie("jwt", token, {
       httpOnly: true,
@@ -81,15 +78,19 @@ export const loginUser = async (req, res) => {
 
 export const authUser = async (req, res) => {
   const cookie = req.cookies["jwt"];
-  const claims = verify(cookie, process.env.SECRET_KEY);
-  if (!claims) {
-    return res.status(401).send({ message: "unauthenticated" });
-  }
-  try {
-    const user = await Users.findOne({ _id: claims._id });
-    const { password, ...data } = user.toJSON();
-    res.status(200).send(data);
-  } catch (error) {
-    res.status(500).send({ error });
+  if (cookie) {
+    const claims = verify(cookie, process.env.SECRET_KEY);
+    if (!claims) {
+      return res.status(401).send({ message: "unauthenticated" });
+    }
+    try {
+      const user = await Users.findOne({ _id: claims._id });
+      const { password, ...data } = user.toJSON();
+      res.status(200).send(data);
+    } catch (error) {
+      res.status(500).send({ error });
+    }
+  } else {
+    return res.status(404).send({ message: "Sign In first" });
   }
 };

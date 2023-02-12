@@ -16,8 +16,8 @@ dotenv.config();
 mongoose.set("strictQuery", false);
 
 //Routes
-app.use("/api/rooms", RoomRoute);
-app.use("/api/users", UserRoute);
+app.use("/api", RoomRoute);
+app.use("/api", UserRoute);
 
 const PORT = process.env.PORT || 3000;
 const DB = process.env.DB_URL.replace("<password>", process.env.PASSWORD);
