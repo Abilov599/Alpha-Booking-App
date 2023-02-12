@@ -1,11 +1,15 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { signUpSchema } from "./../../../schema/signUpSchema";
-import { Link, useNavigate } from "react-router-dom";
-import "./index.scss";
 import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchUserAuth } from "./../../../redux/slice/userAuthSlice";
+import { signUpSchema } from "./../../../schema/signUpSchema";
+import "./index.scss";
 
 const SignUp = () => {
+  const userState = useSelector((state) => state.userAuthSlice);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const signup = async (values) => {
     const obj = {
@@ -14,10 +18,7 @@ const SignUp = () => {
       password: values.password,
     };
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/register",
-        obj
-      );
+      const res = await axios.post("http://localhost:8080/api/register", obj);
     } catch (error) {
       throw error;
     }
@@ -29,11 +30,9 @@ const SignUp = () => {
       password: values.password,
     };
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/login",
-        obj,
-        { withCredentials: true }
-      );
+      const res = await axios.post("http://localhost:8080/api/login", obj, {
+        withCredentials: true,
+      });
     } catch (error) {
       throw error;
     }
@@ -53,7 +52,11 @@ const SignUp = () => {
             }}
             validationSchema={signUpSchema}
             onSubmit={async (values) =>
-              signup(values).then(() => login(values).then(() => navigate("/")))
+              signup(values).then(() =>
+                login(values).then(() =>
+                  dispatch(fetchUserAuth()).then(() => navigate("/"))
+                )
+              )
             }
           >
             {({ errors, touched }) => (
