@@ -1,12 +1,17 @@
-import React from "react";
-import "./index.scss";
-import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { DownOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { MDBContainer } from "mdb-react-ui-kit";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
+import { fetchUserAuth } from "../../../redux/slice/userAuthSlice";
 import siteLogo from "../../assets/images/logo/alpha-logo1.png";
+import "./index.scss";
 
 const Header = () => {
+  const userState = useSelector((state) => state.userAuthSlice);
+  const dispatch = useDispatch();
+
   const items = [
     { key: "1", label: <Link to="/gallery">Gallery</Link> },
     { key: "2", label: <Link to="/about-us">About Us</Link> },
@@ -16,6 +21,13 @@ const Header = () => {
   ];
   const navigate = useNavigate();
   const { pathname } = useLocation();
+
+  useEffect(() => {
+    dispatch(fetchUserAuth());
+  }, [dispatch]);
+
+  console.log(userState.data);
+
   return (
     <header className={pathname == "/" ? "bg-transparent" : ""}>
       <div className="container">

@@ -1,8 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import getDataSlice from "../slice/dataSlice";
 import thunk from "redux-thunk";
+import userAuthSlice from "../slice/userAuthSlice";
 
 export const store = configureStore({
-  reducer: { getDataSlice: getDataSlice },
+  reducer: { userAuthSlice: userAuthSlice },
   middleware: [thunk],
 });

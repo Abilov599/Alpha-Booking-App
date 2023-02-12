@@ -1,33 +1,17 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Route, Routes } from "react-router-dom";
 
-import SiteRoot from "./../site/root/index";
 import Home from "../site/pages/home";
 import Rooms from "./../site/pages/rooms/index";
-import SignUp from "./../site/pages/sign-up/index";
 import SignIn from "./../site/pages/sign-in/index";
+import SignUp from "./../site/pages/sign-up/index";
+import SiteRoot from "./../site/root/index";
 
-import AdminRoot from "./../admin/root/index";
 import AdminHome from "./../admin/pages/home/index";
 import AdminLogin from "./../admin/pages/login/index";
-import axios from "axios";
+import AdminRoot from "./../admin/root/index";
 
 const Routing = () => {
-  const getUser = async () => {
-    try {
-      const { data } = await axios.get("http://localhost:8080/api/user", {
-        withCredentials: true,
-      });
-      console.log(data);
-    } catch (error) {
-      throw error;
-    }
-  };
-
-  useEffect(() => {
-    getUser();
-  }, []);
-
   return (
     <Routes>
       <Route path="/" element={<SiteRoot />}>

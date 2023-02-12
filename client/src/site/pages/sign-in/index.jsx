@@ -1,11 +1,15 @@
-import React from "react";
-import { Formik, Form, Field } from "formik";
-import { logInSchema } from "./../../../schema/logInSchema";
-import { Link, useNavigate } from "react-router-dom";
-import "./index.scss";
 import axios from "axios";
+import { Field, Form, Formik } from "formik";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
+import { fetchUserAuth } from "../../../redux/slice/userAuthSlice";
+import { logInSchema } from "./../../../schema/logInSchema";
+import "./index.scss";
 
 const SignIn = () => {
+  const userState = useSelector((state) => state.userAuthSlice);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const login = async (values) => {
@@ -14,15 +18,14 @@ const SignIn = () => {
       password: values.password,
     };
     try {
-      const res = await axios.post(
-        "http://localhost:8080/api/login",
-        obj,
-        { withCredentials: true }
-      );
+      const res = await axios.post("http://localhost:8080/api/login", obj, {
+        withCredentials: true,
+      });
     } catch (error) {
       throw error;
     }
   };
+
   return (
     <main id="singin-page">
       <section className="sign-in">
@@ -34,7 +37,11 @@ const SignIn = () => {
               password: "",
             }}
             validationSchema={logInSchema}
-            onSubmit={(values) => login(values).then(() => navigate("/"))}
+            onSubmit={(values) =>
+              login(values).then(() =>
+                dispatch(fetchUserAuth()).then(() => navigate("/"))
+              )
+            }
           >
             {({ errors, touched }) => (
               <Form>
