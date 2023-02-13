@@ -18,13 +18,13 @@ const Header = () => {
       withCredentials: true,
     });
   };
-  // const items = [
-  //   { key: "1", label: <Link to="/gallery">Gallery</Link> },
-  //   { key: "2", label: <Link to="/about-us">About Us</Link> },
-  //   { key: "3", label: <Link to="/staff">Staff</Link> },
-  //   { key: "4", label: <Link to="/events">Events</Link> },
-  //   { key: "5", label: <Link to="/fag">FAQ</Link> },
-  // ];
+  const items = [
+    { key: "1", label: <Link to="/gallery">Gallery</Link> },
+    { key: "2", label: <Link to="/about-us">About Us</Link> },
+    { key: "3", label: <Link to="/staff">Staff</Link> },
+    { key: "4", label: <Link to="/events">Events</Link> },
+    { key: "5", label: <Link to="/fag">FAQ</Link> },
+  ];
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -49,7 +49,7 @@ const Header = () => {
               <NavLink to="/rooms">ROOMS</NavLink>
             </li>
             <li className="nav-items">
-              {/* <Dropdown
+              <Dropdown
                 menu={{
                   items,
                 }}
@@ -60,7 +60,7 @@ const Header = () => {
                     <DownOutlined />
                   </Space>
                 </a>
-              </Dropdown> */}
+              </Dropdown>
             </li>
             <li className="nav-items">
               <NavLink to="/blogs">BLOG</NavLink>
@@ -92,11 +92,15 @@ const Header = () => {
                         <Link to="/booking">My Bookings</Link>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <button onClick={() => logout()}>Log out</button>
+                        <button
+                          onClick={() => logout().then(() => fetchUserAuth())}
+                        >
+                          Log out
+                        </button>
                       </Menu.Item>
                     </Menu>
                   }
-                  trigger={["hover"]}
+                  trigger={["click"]}
                 >
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>

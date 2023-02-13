@@ -91,7 +91,7 @@ export const authUser = async (req, res) => {
   }
 };
 
-export const userLogout = async (_req, res) => {
+export const userLogout = async (req, res) => {
   res.cookie("jwt", "none", {
     withCredentials: true,
     path: "/",
