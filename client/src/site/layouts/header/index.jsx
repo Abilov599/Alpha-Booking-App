@@ -92,11 +92,11 @@ const Header = () => {
                         <Link to="/booking">My Bookings</Link>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <button
+                        <Link to="/sign-in"
                           onClick={() => logout().then(() => fetchUserAuth())}
                         >
                           Log out
-                        </button>
+                        </Link>
                       </Menu.Item>
                     </Menu>
                   }
