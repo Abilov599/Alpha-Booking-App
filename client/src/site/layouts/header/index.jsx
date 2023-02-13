@@ -92,7 +92,8 @@ const Header = () => {
                         <Link to="/booking">My Bookings</Link>
                       </Menu.Item>
                       <Menu.Item key="2">
-                        <Link to="/sign-in"
+                        <Link
+                          to="/sign-in"
                           onClick={() => logout().then(() => fetchUserAuth())}
                         >
                           Log out
@@ -110,18 +111,6 @@ const Header = () => {
                   </a>
                 </Dropdown>
               ) : (
-                // <Dropdown
-                //   menu={{
-                //     items,
-                //   }}
-                // >
-                //   <a onClick={(e) => e.preventDefault()}>
-                //     <Space>
-                //       {data.fullname}
-                //       <DownOutlined />
-                //     </Space>
-                //   </a>
-                // </Dropdown>
                 <NavLink
                   to="sign-in"
                   className={pathname === "/" ? "btn-orange" : "btn-none"}
