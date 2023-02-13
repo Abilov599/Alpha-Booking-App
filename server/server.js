@@ -37,6 +37,8 @@ mongoose.connect(
     }
   },
   app.listen(PORT, () =>
-    console.log(`Example app listening on http://localhost:${PORT}/api/users`)
+    console.log(
+      `Example app listening on http://localhost:${PORT}/api/allUsers`
+    )
   )
 );

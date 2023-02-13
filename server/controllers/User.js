@@ -61,7 +61,7 @@ export const loginUser = async (req, res) => {
       return res.status(404).send({ message: "User not found" });
     }
     if (!(await bcrypt.compare(password, user.password))) {
-      return res.status(400).send({ message: "Invalid cridentials" });
+      return res.status(400).send({ message: "Invalid credentials" });
     }
     const token = sign({ _id: user._id }, process.env.SECRET_KEY);
     user.token = token;
@@ -92,6 +92,11 @@ export const authUser = async (req, res) => {
 };
 
 export const userLogout = async (_req, res) => {
-  res.cookie("jwt", "", { maxAge: 0 });
+  res.cookie("jwt", "none", {
+    withCredentials: true,
+    path: "/",
+    domain: "localhost",
+    maxAge: 0,
+  });
   res.status(201).send({ message: "SUCCESS" });
 };

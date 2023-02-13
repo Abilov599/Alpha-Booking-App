@@ -1,5 +1,5 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
+import { Dropdown, Menu, Space } from "antd";
 import axios from "axios";
 import { MDBContainer } from "mdb-react-ui-kit";
 import React, { useEffect } from "react";
@@ -25,17 +25,6 @@ const Header = () => {
   //   { key: "4", label: <Link to="/events">Events</Link> },
   //   { key: "5", label: <Link to="/fag">FAQ</Link> },
   // ];
-  const items = [
-    { key: "1", label: <Link to="/user-booking/:id">Booking</Link> },
-    {
-      key: "2",
-      label: (
-        <Link to="/sign-in" onClick={() => logout()}>
-          Log out
-        </Link>
-      ),
-    },
-  ];
   const navigate = useNavigate();
   const { pathname } = useLocation();
 
@@ -94,9 +83,20 @@ const Header = () => {
             <li>
               {data ? (
                 <Dropdown
-                  menu={{
-                    items,
-                  }}
+                  overlay={
+                    <Menu>
+                      <Menu.Item key="0">
+                        <a>{data.email}</a>
+                      </Menu.Item>
+                      <Menu.Item key="1">
+                        <Link to="/booking">My Bookings</Link>
+                      </Menu.Item>
+                      <Menu.Item key="2">
+                        <button onClick={() => logout()}>Log out</button>
+                      </Menu.Item>
+                    </Menu>
+                  }
+                  trigger={["hover"]}
                 >
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
@@ -106,6 +106,18 @@ const Header = () => {
                   </a>
                 </Dropdown>
               ) : (
+                // <Dropdown
+                //   menu={{
+                //     items,
+                //   }}
+                // >
+                //   <a onClick={(e) => e.preventDefault()}>
+                //     <Space>
+                //       {data.fullname}
+                //       <DownOutlined />
+                //     </Space>
+                //   </a>
+                // </Dropdown>
                 <NavLink
                   to="sign-in"
                   className={pathname === "/" ? "btn-orange" : "btn-none"}
