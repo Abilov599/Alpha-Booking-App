@@ -1,7 +1,31 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "./index.scss";
+import RoomCard from "./../../components/room-card/index";
 
 const Rooms = () => {
-  return <div>Rooms</div>;
+  return (
+    <main id="rooms">
+      <section className="sub-banner">
+        <div className="container">
+          <h1>Rooms</h1>
+          <nav>
+            <ol>
+              <li>
+                <Link to="/">Home</Link>
+              </li>
+              <li className="active">Rooms</li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+      <section className="room-cards">
+        <div className="container">
+          <RoomCard />
+        </div>
+      </section>
+    </main>
+  );
 };
 
 export default Rooms;

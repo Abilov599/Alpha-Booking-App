@@ -13,7 +13,7 @@ const Footer = () => {
             </div>
             <ul className="personal-info">
               <li>
-                <i className="fa fa-map-marker"></i> Address: 44 New Design
+                <i className="fa-solid fa-location-dot"></i>Address: 44 New Design
                 Street,
               </li>
               <li>
