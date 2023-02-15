@@ -1,20 +1,27 @@
 #room-card {
+  display: flex;
+  gap: 20px;
   .row {
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
     align-items: center;
     gap: 20px;
     .card {
+      border-radius: 10px;
       max-width: 416px;
       width: 100%;
       position: relative;
       overflow: hidden;
       transition: 0.5s;
-      box-shadow: 0 0 5px rgb(0 0 0 / 10%);
+      box-shadow: 0 0 5px rgba(0 0 0 / 10%);
       &:hover {
+        box-shadow: 0 0 15px rgb(0 0 0 / 10%);
+        transform: translateY(-5px);
         .card-image {
           .photo {
             img {
+              transform: scale(1.1);
             }
             a {
               visibility: visible;
@@ -39,8 +46,6 @@
         display: block;
         cursor: pointer;
         .photo {
-          max-height: 275px;
-          height: 100%;
           position: relative;
           display: block;
           overflow: hidden;
@@ -62,6 +67,7 @@
           }
           img {
             width: 100%;
+            vertical-align: middle;
             transform: scale(1);
             transition: all 500ms ease;
           }

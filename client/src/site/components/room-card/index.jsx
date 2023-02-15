@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchCardData } from "./../../../redux/slice/getCardDataSlice";
 import { Space, Spin } from "antd";
 import { Link } from "react-router-dom";
+import SearchForm from "./../search-form/index";
 
 const RoomCard = () => {
   const { loading, data, error } = useSelector((state) => state.getCardData);
@@ -15,6 +16,9 @@ const RoomCard = () => {
 
   return (
     <div id="room-card">
+      <div style={{ width: "46.8017560%" }} className="search-form">
+        <SearchForm />
+      </div>
       <div className="row">
         {loading ? (
           <Space size="middle">
@@ -64,7 +68,7 @@ const RoomCard = () => {
                         <i className="fa-solid fa-wifi"></i>Wi-Fi
                       </li>
                       <li>
-                        <i class="fa-solid fa-square-parking"></i>Parking
+                        <i className="fa-solid fa-square-parking"></i>Parking
                       </li>
                     </ul>
                   </div>
