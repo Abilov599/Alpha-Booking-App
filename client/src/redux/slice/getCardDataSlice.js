@@ -7,9 +7,9 @@ const initialState = {
   error: undefined,
 };
 
-export const fetchUserAuth = createAsyncThunk("fetchUserAuth", async () => {
+export const fetchCardData = createAsyncThunk("fetchCardData", async () => {
   try {
-    const res = await axios.get("http://localhost:8080/api/user", {
+    const res = await axios.get("http://localhost:8080/api/rooms", {
       withCredentials: true,
     });
     return res.data;
@@ -18,24 +18,24 @@ export const fetchUserAuth = createAsyncThunk("fetchUserAuth", async () => {
   }
 });
 
-const userAuthSlice = createSlice({
-  name: "userAuthSlice",
+const getCardData = createSlice({
+  name: "getCardData",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(fetchUserAuth.pending, (state, _action) => {
+      .addCase(fetchCardData.pending, (state, _action) => {
         state.loading = true;
       })
-      .addCase(fetchUserAuth.fulfilled, (state, action) => {
+      .addCase(fetchCardData.fulfilled, (state, action) => {
         state.loading = false;
         state.data = action.payload;
       })
-      .addCase(fetchUserAuth.rejected, (state, action) => {
+      .addCase(fetchCardData.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });
   },
 });
 
-export default userAuthSlice.reducer;
+export default getCardData.reducer;
