@@ -9,9 +9,7 @@ const initialState = {
 
 export const fetchCardData = createAsyncThunk("fetchCardData", async () => {
   try {
-    const res = await axios.get("http://localhost:8080/api/rooms", {
-      withCredentials: true,
-    });
+    const res = await axios.get("http://localhost:8080/api/rooms");
     return res.data;
   } catch (error) {
     throw error;
