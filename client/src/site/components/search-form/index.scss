@@ -25,14 +25,43 @@
         height: 50px;
         .ant-picker-input {
           input {
+            color: #7f7f80 !important;
             cursor: pointer;
-            font-size: inherit !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
             line-height: inherit !important;
             padding: 13px 13px !important;
             width: 100%;
             padding: 5px 4px !important;
             border-radius: 3px;
-            color: #757575;
+          }
+        }
+      }
+      .ant-select {
+        width: 100% !important;
+        height: 50px !important;
+        text-align: left;
+        .ant-select-selector {
+          width: inherit;
+          height: 100%;
+          padding: 4px 11px 4px !important;
+          background: #eef1f6 !important;
+          input {
+            width: inherit;
+            height: inherit;
+            cursor: pointer;
+          }
+          span {
+            display: flex;
+            align-items: center;
+            width: inherit;
+            height: inherit;
+            padding: 5px 4px !important;
+            border-radius: 3px;
+            color: #787878 !important;
+            font-size: 16px !important;
+            font-weight: 600 !important;
+            line-height: inherit !important;
           }
         }
       }
