@@ -15,7 +15,7 @@ const RoomCard = () => {
   }, [dispatch]);
 
   return (
-    <div id="room-card">
+    <div id="room-cards">
       <div style={{ width: "46.8017560%" }} className="search-form">
         <SearchForm />
       </div>
@@ -28,26 +28,26 @@ const RoomCard = () => {
           </Space>
         ) : (
           data &&
-          data.map((el) => {
+          data.map((room) => {
             return (
-              <div key={el._id} className="card">
+              <div key={room._id} className="card">
                 <div className="card-image">
                   <div className="photo">
-                    <img src={`${el.thumbnailImage}`} alt="" />
-                    <Link to={`/${el._id}`}>
+                    <img src={`${room.thumbnailImage}`} alt="" />
+                    <Link to={`/${room._id}`}>
                       <span></span>
                     </Link>
                   </div>
-                  <div className="room-price">{`$${el.price}.99/Night`}</div>
+                  <div className="room-price">{`$${room.price}.99/Night`}</div>
                 </div>
                 <div className="card-details">
                   <h3>
-                    <Link to={`/${el._id}`}>{el.name}</Link>
+                    <Link to={`/${room._id}`}>{room.name}</Link>
                   </h3>
                   <p>
                     <Link to="#">
                       <i className="fa-solid fa-location-dot"></i>
-                      {el.address}
+                      {room.address}
                     </Link>
                   </p>
                   <div className="facilities">

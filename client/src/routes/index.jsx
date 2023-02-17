@@ -10,6 +10,7 @@ import SiteRoot from "./../site/root/index";
 import AdminHome from "./../admin/pages/home/index";
 import AdminLogin from "./../admin/pages/login/index";
 import AdminRoot from "./../admin/root/index";
+import Booking from "../site/pages/booking";
 
 const Routing = () => {
   return (
@@ -17,9 +18,11 @@ const Routing = () => {
       <Route path="/" element={<SiteRoot />}>
         <Route index element={<Home />} />
         <Route path="rooms" element={<Rooms />} />
+        <Route path="booking/:roomID/:from" element={<Booking />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="sign-in" element={<SignIn />} />
       </Route>
+
       <Route path="/admin" element={<AdminRoot />}>
         <Route index element={<AdminHome />} />
         <Route path="sign-in" element={<AdminLogin />} />
