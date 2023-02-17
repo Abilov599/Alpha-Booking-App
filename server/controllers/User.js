@@ -54,7 +54,6 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-
   try {
     const user = await Users.findOne({ email: email });
     if (!user) {
@@ -64,7 +63,6 @@ export const loginUser = async (req, res) => {
       return res.status(400).send({ message: "Invalid credentials" });
     }
     const token = sign({ _id: user._id }, process.env.SECRET_KEY);
-    user.token = token;
     res.cookie("jwt", token, {
       httpOnly: true,
       withCredentials: true,
@@ -94,8 +92,6 @@ export const authUser = async (req, res) => {
 export const userLogout = async (req, res) => {
   res.cookie("jwt", "none", {
     withCredentials: true,
-    path: "/",
-    domain: "localhost",
     maxAge: 0,
   });
   res.status(201).send({ message: "SUCCESS" });
