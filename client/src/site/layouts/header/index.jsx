@@ -78,8 +78,9 @@ const Header = () => {
                 </MDBContainer>
               </li>
             ) : null}
-            <li>
-              {data ? (
+
+            {data ? (
+              <li className="nav-items">
                 <Dropdown
                   overlay={
                     <Menu>
@@ -110,15 +111,17 @@ const Header = () => {
                     </Space>
                   </a>
                 </Dropdown>
-              ) : (
+              </li>
+            ) : (
+              <li>
                 <NavLink
                   to="sign-in"
                   className={pathname === "/" ? "btn-orange" : "btn-none"}
                 >
                   Booking System
                 </NavLink>
-              )}
-            </li>
+              </li>
+            )}
           </ul>
         </nav>
       </div>
