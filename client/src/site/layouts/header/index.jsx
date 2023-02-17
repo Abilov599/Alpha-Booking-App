@@ -4,6 +4,7 @@ import axios from "axios";
 import { MDBContainer } from "mdb-react-ui-kit";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useCookies } from "react-cookie";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import { fetchUserAuth } from "../../../redux/slice/userAuthSlice";
 import siteLogo from "../../assets/images/logo/alpha-logo1.png";
@@ -13,11 +14,8 @@ const Header = () => {
   const { loading, data, error } = useSelector((state) => state.userAuthSlice);
   const dispatch = useDispatch();
 
-  const logout = async () => {
-    await axios.post("http://localhost:8080/api/logout", {
-      withCredentials: true,
-    });
-  };
+  const [cookies, setCookie, removeCookie] = useCookies(["jwt"]);
+
   const items = [
     { key: "1", label: <Link to="/gallery">Gallery</Link> },
     { key: "2", label: <Link to="/about-us">About Us</Link> },
@@ -94,7 +92,9 @@ const Header = () => {
                       <Menu.Item key="2">
                         <Link
                           to="/sign-in"
-                          onClick={() => logout().then(() => fetchUserAuth())}
+                          onClick={() =>
+                            removeCookie(["jwt"]).then(() => fetchUserAuth())
+                          }
                         >
                           Log out
                         </Link>

@@ -64,7 +64,6 @@ export const loginUser = async (req, res) => {
     }
     const token = sign({ _id: user._id }, process.env.SECRET_KEY);
     res.cookie("jwt", token, {
-      httpOnly: true,
       withCredentials: true,
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
@@ -87,12 +86,4 @@ export const authUser = async (req, res) => {
   } catch (error) {
     return res.status(401).send({ message: "unauthenticated" });
   }
-};
-
-export const userLogout = async (req, res) => {
-  res.cookie("jwt", "none", {
-    withCredentials: true,
-    maxAge: 0,
-  });
-  res.status(201).send({ message: "SUCCESS" });
 };
