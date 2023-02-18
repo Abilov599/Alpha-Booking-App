@@ -39,7 +39,7 @@ const SignUp = () => {
   };
 
   return (
-    <main id="singup-page">
+    <main id="signup-page">
       <section className="sign-up">
         <div className="form-inner">
           <h3>Create an account</h3>

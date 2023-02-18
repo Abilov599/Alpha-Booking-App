@@ -1,4 +1,4 @@
-#singup-page {
+#signup-page {
   display: flex;
   justify-content: space-between;
   .sign-up {
@@ -7,7 +7,7 @@
     align-items: center;
     padding: 15px 0;
     background: #fff;
-    min-height: 86.2vh;
+    min-height: 95vh;
     height: 100%;
     width: 50%;
     .form-inner {
@@ -54,6 +54,7 @@
               border-radius: 0.25em;
               width: 17px;
               height: 17px;
+              accent-color: #f4a460;
             }
             label {
               font-size: 16px;
@@ -156,7 +157,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: 50%;
-    min-height: 86.2vh;
+    min-height: 95vh;
     height: 100%;
     &:before {
       position: absolute;
