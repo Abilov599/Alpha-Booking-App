@@ -7,7 +7,8 @@
     align-items: center;
     padding: 15px 0;
     background: #fff;
-    min-height: 100vh;
+    min-height: 86.2vh;
+    height: 100%;
     width: 50%;
     .form-inner {
       max-width: 500px;
@@ -159,7 +160,8 @@
     background-repeat: no-repeat;
     background-size: cover;
     width: 50%;
-    min-height: 100vh;
+    min-height: 86.2vh;
+    height: 100%;
     &:before {
       position: absolute;
       content: "";
