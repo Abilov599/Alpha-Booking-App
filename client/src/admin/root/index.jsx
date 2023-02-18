@@ -11,7 +11,13 @@ const AdminRoot = () => {
     dispatch(fetchUserAuth());
   }, [dispatch]);
 
-  return data?.isAdmin ? <Outlet /> : <h1>Access Denied</h1>;
+  const useAuth = () => {
+    return data?.isAdmin;
+  };
+
+  const isAuth = useAuth();
+
+  return isAuth ? <Outlet /> : <h1>Access Denied</h1>;
 };
 
 export default AdminRoot;

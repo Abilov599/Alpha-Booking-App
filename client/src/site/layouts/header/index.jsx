@@ -84,13 +84,24 @@ const Header = () => {
                 <Dropdown
                   overlay={
                     <Menu>
-                      <Menu.Item key="0">
-                        <a>{data.email}</a>
-                      </Menu.Item>
-                      <Menu.Item key="1">
+                      {data.isAdmin ? (
+                        <>
+                          <Menu.Item key="0">
+                            <a>Admin</a>
+                          </Menu.Item>
+                          <Menu.Item key="1">
+                            <Link to="/admin">Go to Dashboard</Link>
+                          </Menu.Item>
+                        </>
+                      ) : (
+                        <Menu.Item key="0">
+                          <a>{data.email}</a>
+                        </Menu.Item>
+                      )}
+                      <Menu.Item key="2">
                         <Link to="/booking">My Bookings</Link>
                       </Menu.Item>
-                      <Menu.Item key="2">
+                      <Menu.Item key="3">
                         <Link
                           to="/sign-in"
                           onClick={() =>
