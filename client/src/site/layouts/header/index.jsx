@@ -118,7 +118,11 @@ const Header = () => {
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
                       {data.fullname.toLocaleUpperCase()}
-                      <i className="fa-solid fa-user fa-2x"></i>
+                      {data?.isAdmin ? (
+                        <i className="fa-solid fa-user-tie fa-2x"></i>
+                      ) : (
+                        <i className="fa-solid fa-user fa-2x"></i>
+                      )}
                     </Space>
                   </a>
                 </Dropdown>
