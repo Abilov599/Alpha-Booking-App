@@ -117,8 +117,8 @@ const Header = () => {
                 >
                   <a onClick={(e) => e.preventDefault()}>
                     <Space>
-                      {data.fullname}
-                      <DownOutlined />
+                      {data.fullname.toLocaleUpperCase()}
+                      <i className="fa-solid fa-user fa-2x"></i>
                     </Space>
                   </a>
                 </Dropdown>

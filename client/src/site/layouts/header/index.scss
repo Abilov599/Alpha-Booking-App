@@ -57,6 +57,8 @@ header {
           }
         }
         .nav-items {
+          display: flex;
+          align-items: center;
           padding: 40px 20px;
           &:hover {
             background-color: #f8f8f8;
