@@ -39,7 +39,7 @@ const SignIn = () => {
             validationSchema={logInSchema}
             onSubmit={(values) =>
               login(values).then(() =>
-                dispatch(fetchUserAuth()).then(() => navigate("/"))
+                dispatch(fetchUserAuth()).then(() => navigate("/rooms"))
               )
             }
           >

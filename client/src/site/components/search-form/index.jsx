@@ -50,8 +50,9 @@ const SearchForm = () => {
     // navigate("/rooms");
   };
 
-  const { checkInVal, checkOutVal, roomVal, adultsVal, childrenVal } =
-    JSON.parse(localStorage.getItem("formObj"));
+  const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
+
+  const { checkInVal, checkOutVal, roomVal, adultsVal, childrenVal } = formObj;
 
   return (
     <div className="search-room">
