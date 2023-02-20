@@ -14,6 +14,11 @@ const RoomCard = () => {
     dispatch(fetchCardData());
   }, [dispatch]);
 
+  const { checkInValue, checkOutValue, roomValue, adultsValue, childrenValue } =
+    JSON.parse(localStorage.getItem("formObj"));
+
+  console.log(checkInValue, checkOutValue);
+
   return (
     <div id="room-cards">
       <div style={{ width: "46.8017560%" }} className="search-form">
@@ -34,7 +39,7 @@ const RoomCard = () => {
                 <div className="card-image">
                   <div className="photo">
                     <img src={`${room.thumbnailImage}`} alt="" />
-                    <Link to={`/${room._id}`}>
+                    <Link to={`/booking/${room._id}`}>
                       <span></span>
                     </Link>
                   </div>
@@ -42,7 +47,7 @@ const RoomCard = () => {
                 </div>
                 <div className="card-details">
                   <h3>
-                    <Link to={`/${room._id}`}>{room.name}</Link>
+                    <Link to={`/booking/${room._id}`}>{room.name}</Link>
                   </h3>
                   <p>
                     <Link to="#">

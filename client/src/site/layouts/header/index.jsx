@@ -30,7 +30,7 @@ const Header = () => {
     dispatch(fetchUserAuth());
   }, [dispatch]);
 
-  console.log(data);
+  // console.log(data);
 
   return (
     <header className={pathname == "/" ? "bg-transparent" : ""}>
