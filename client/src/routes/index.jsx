@@ -19,7 +19,7 @@ const Routing = () => {
       <Route path="/" element={<SiteRoot />}>
         <Route index element={<Home />} />
         <Route path="rooms" element={<Rooms />} />
-        <Route path="booking/:roomID/:from" element={<Booking />} />
+        <Route path="booking/:roomID/" element={<Booking />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="sign-in" element={<SignIn />} />
       </Route>
