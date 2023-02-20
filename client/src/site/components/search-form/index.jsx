@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { DatePicker, Select } from "antd";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import moment from "moment";
 
 const SearchForm = () => {
   const navigate = useNavigate();
@@ -12,9 +13,19 @@ const SearchForm = () => {
   const [childrenValue, setChildrenValue] = useState(0);
 
   const { pathname } = useLocation();
-  const { params } = useParams();
 
   const dateFormatList = "DD-MM-YYYY";
+
+  const totalDaysValue =
+    checkInValue && checkOutValue
+      ? moment
+          .duration(
+            moment(checkOutValue, dateFormatList).diff(
+              moment(checkInValue, dateFormatList)
+            )
+          )
+          .asDays()
+      : 1;
 
   const obj = {
     checkInValue: checkInValue,
@@ -22,8 +33,10 @@ const SearchForm = () => {
     roomValue: roomValue,
     adultsValue: adultsValue,
     childrenValue: childrenValue,
+    totalDaysValue: totalDaysValue,
   };
 
+  console.log(obj.totalDaysValue);
   const handleSubmit = (e) => {
     e.preventDefault();
     checkInValue &&
@@ -36,6 +49,9 @@ const SearchForm = () => {
     // }
     // navigate("/rooms");
   };
+
+  const { checkInVal, checkOutVal, roomVal, adultsVal, childrenVal } =
+    JSON.parse(localStorage.getItem("formObj"));
 
   return (
     <div className="search-room">
@@ -100,7 +116,9 @@ const SearchForm = () => {
           />
         </div>
         <div className="form-group">
-          <button type="submit">{params ? "Book Now" : "Search"}</button>
+          <button type="submit">
+            {pathname === "/rooms" ? "Confirm" : "Search"}
+          </button>
         </div>
       </form>
     </div>

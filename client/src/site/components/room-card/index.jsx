@@ -14,11 +14,6 @@ const RoomCard = () => {
     dispatch(fetchCardData());
   }, [dispatch]);
 
-  const { checkInValue, checkOutValue, roomValue, adultsValue, childrenValue } =
-    JSON.parse(localStorage.getItem("formObj"));
-
-  console.log(checkInValue, checkOutValue);
-
   return (
     <div id="room-cards">
       <div style={{ width: "46.8017560%" }} className="search-form">
