@@ -2,10 +2,15 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./index.scss";
 import RoomCard from "./../../components/room-card/index";
+import { Helmet } from "react-helmet";
 
 const Rooms = () => {
   return (
     <main id="rooms">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Rooms</title>
+      </Helmet>
       <section className="sub-banner">
         <div className="container">
           <h1>Rooms</h1>

@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUserAuth } from "./../../../redux/slice/userAuthSlice";
@@ -40,6 +41,10 @@ const SignUp = () => {
 
   return (
     <main id="signup-page">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sign Up</title>
+      </Helmet>
       <section className="sign-up">
         <div className="form-inner">
           <h3>Create an account</h3>
@@ -54,7 +59,7 @@ const SignUp = () => {
             onSubmit={async (values) =>
               signup(values).then(() =>
                 login(values).then(() =>
-                  dispatch(fetchUserAuth()).then(() => navigate("/"))
+                  dispatch(fetchUserAuth()).then(() => navigate("/rooms"))
                 )
               )
             }

@@ -2,10 +2,15 @@ import React from "react";
 import "./index.scss";
 import { Link } from "react-router-dom";
 import SearchForm from "./../../components/search-form/index";
+import { Helmet } from "react-helmet";
 
 const Home = () => {
   return (
     <main id="home">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Hotel Alpha - Booking and Reservation</title>
+      </Helmet>
       <section id="greeting">
         <div className="container">
           <div className="welcome">

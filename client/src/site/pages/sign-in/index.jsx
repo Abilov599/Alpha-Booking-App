@@ -1,6 +1,7 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
 import React from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUserAuth } from "../../../redux/slice/userAuthSlice";
@@ -28,6 +29,10 @@ const SignIn = () => {
 
   return (
     <main id="singin-page">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>Sign In</title>
+      </Helmet>
       <section className="sign-in">
         <div className="form-inner">
           <h3>Sign into your account</h3>
