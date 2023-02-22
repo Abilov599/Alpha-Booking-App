@@ -1,0 +1,102 @@
+#booking {
+    .slider {
+        .slide {
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    .main-info {
+        position: relative;
+        width: 100%;
+        height: auto;
+        top: -60px;
+
+        .container {
+            padding: 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+            .box {
+                padding: 30px;
+                display: flex;
+                gap: 30px;
+                align-items: center;
+
+                .image {
+                    img {
+                        max-width: 294px;
+                    }
+                }
+
+                .content {
+                    display: flex;
+                    width: 100%;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    .for-rent {
+                        padding: 4px 15px 4px;
+                        border-radius: 3px;
+                        color: #fff;
+                        font-size: 14px;
+                        width: 85px;
+                        background: #F4A460;
+                        font-weight: 400;
+                    }
+
+                    h1 {
+                        width: 100%;
+                        font-size: 30px;
+
+                        span {
+                            float: right;
+                            letter-spacing: 1px;
+                            font-weight: 600;
+                            color: #f4a460;
+                            font-size: 22px;
+
+                            span {
+                                color: black;
+                            }
+                        }
+                    }
+
+                    .facilities {
+                        ul {
+                            display: flex;
+                            width: 100%;
+                            color: #5a5959;
+                            gap: 20px;
+
+                            li {
+                                font-size: 16px;
+                                line-height: 29px;
+
+                                i {
+                                    color: #f4a460;
+                                    margin-right: 10px;
+                                }
+                            }
+                        }
+                    }
+
+                    p {
+                        color: #5a5959;
+                        margin-bottom: 15px;
+
+                        a {
+                            cursor: pointer;
+                            color: #5a5959;
+
+                            i {
+                                margin-right: 5px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

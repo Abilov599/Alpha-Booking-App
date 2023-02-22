@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import "./index.scss";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCardDataById } from "../../../redux/slice/getCardDataById";
 import { Helmet } from "react-helmet";
+import Slider from "react-slick";
 
 const Booking = () => {
   const { roomID } = useParams();
@@ -18,8 +19,6 @@ const Booking = () => {
     dispatch(fetchCardDataById(roomID));
   }, [dispatch]);
 
-  data && console.table(data);
-
   const settings = {
     dots: false,
     arrows: false,
@@ -27,18 +26,75 @@ const Booking = () => {
     slidesToShow: 3,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 2000,
+    speed: 500,
     autoplaySpeed: 3000,
   };
 
   return (
-    <div>
+    <main id="booking">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Booking</title>
       </Helmet>
-      BookingPage
-    </div>
+      <section className="slider">
+        <Slider {...settings}>
+          {data?.images.map((img, i) => {
+            return (
+              <div key={i} className="slide">
+                <img src={`${img}`} alt="" />
+              </div>
+            );
+          })}
+        </Slider>
+      </section>
+      <section className="main-info">
+        <div className="container">
+          <div className="box">
+            <div className="image">
+              <img src={`${data?.thumbnailImage}`} alt="" />
+            </div>
+            <div className="content">
+              <div className="for-rent">For Rent</div>
+              <h1>
+                {data?.type}
+                <span>
+                  {`$${data?.price}.99`}
+                  <span>/Night</span>
+                </span>
+              </h1>
+              <div className="facilities">
+                <ul>
+                  <li>
+                    <i className="fa-solid fa-bed"></i>Beds
+                  </li>
+                  <li>
+                    <i className="fa-solid fa-snowflake"></i>AC
+                  </li>
+                  <li>
+                    <i className="fa-solid fa-tv"></i>TV
+                  </li>
+                  <li>
+                    <i className="fa-solid fa-dumbbell"></i>GYM
+                  </li>
+                  <li>
+                    <i className="fa-solid fa-wifi"></i>Wi-Fi
+                  </li>
+                  <li>
+                    <i className="fa-solid fa-square-parking"></i>Parking
+                  </li>
+                </ul>
+              </div>
+              <p>
+                <Link to="#">
+                  <i className="fa-solid fa-location-dot"></i>
+                  {data?.address}
+                </Link>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 };
 
