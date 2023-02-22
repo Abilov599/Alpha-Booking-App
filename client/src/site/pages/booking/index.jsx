@@ -42,7 +42,7 @@ const Booking = () => {
       </Helmet>
       <section className="slider">
         <Slider {...settings}>
-          {data?.images.map((img, i) => {
+          {data?.images?.map((img, i) => {
             return (
               <div key={i} className="slide">
                 <img src={`${img}`} alt="" />
