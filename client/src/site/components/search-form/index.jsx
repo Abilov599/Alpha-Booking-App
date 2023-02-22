@@ -5,9 +5,14 @@ import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 
 const SearchForm = () => {
+  let today = new Date();
+  let date = today.toJSON().slice(0, 10);
+  let nDate =
+    date.slice(8, 10) + "-" + date.slice(5, 7) + "-" + date.slice(0, 4);
+
   const navigate = useNavigate();
-  const [checkInValue, setCheckInValue] = useState(null);
-  const [checkOutValue, setCheckOutValue] = useState(null);
+  const [checkInValue, setCheckInValue] = useState(nDate);
+  const [checkOutValue, setCheckOutValue] = useState(nDate);
   const [roomValue, setRoomValue] = useState("Single Room");
   const [adultsValue, setAdultsValue] = useState(1);
   const [childrenValue, setChildrenValue] = useState(0);
@@ -16,16 +21,46 @@ const SearchForm = () => {
 
   const dateFormatList = "DD-MM-YYYY";
 
-  const totalDaysValue =
-    checkInValue && checkOutValue
-      ? moment
-          .duration(
-            moment(checkOutValue, dateFormatList).diff(
-              moment(checkInValue, dateFormatList)
-            )
+  console.log(checkInValue, checkOutValue);
+
+  const totalDaysValue = () => {
+    if (
+      moment
+        .duration(
+          moment(checkOutValue, dateFormatList).diff(
+            moment(checkInValue, dateFormatList)
           )
-          .asDays()
-      : 1;
+        )
+        .asDays() == 0
+    ) {
+      return 1;
+    }
+    if (
+      moment
+        .duration(
+          moment(checkOutValue, dateFormatList).diff(
+            moment(checkInValue, dateFormatList)
+          )
+        )
+        .asDays() > 0
+    ) {
+      return moment
+        .duration(
+          moment(checkOutValue, dateFormatList).diff(
+            moment(checkInValue, dateFormatList)
+          )
+        )
+        .asDays();
+    } else {
+      return moment
+        .duration(
+          moment(checkInValue, dateFormatList).diff(
+            moment(checkOutValue, dateFormatList)
+          )
+        )
+        .asDays();
+    }
+  };
 
   const obj = {
     checkInValue: checkInValue,
@@ -33,10 +68,11 @@ const SearchForm = () => {
     roomValue: roomValue,
     adultsValue: adultsValue,
     childrenValue: childrenValue,
-    totalDaysValue: totalDaysValue,
+    totalDaysValue: totalDaysValue(),
   };
 
   console.log(obj.totalDaysValue);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     checkInValue &&
