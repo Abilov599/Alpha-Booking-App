@@ -52,8 +52,6 @@ const SearchForm = () => {
 
   const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
 
-  const { checkInVal, checkOutVal, roomVal, adultsVal, childrenVal } = formObj;
-
   return (
     <div className="search-room">
       <form action="" method="get" onSubmit={(e) => handleSubmit(e)}>

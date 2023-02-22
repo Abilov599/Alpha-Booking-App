@@ -30,6 +30,10 @@ const Booking = () => {
     autoplaySpeed: 3000,
   };
 
+  const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
+
+  const totalPayment = formObj?.totalDaysValue * data?.price;
+
   return (
     <main id="booking">
       <Helmet>
@@ -101,34 +105,34 @@ const Booking = () => {
               <h3>Description</h3>
               <p>{data?.description}</p>
             </div>
-            <div class="extra-service">
+            <div className="extra-service">
               <h3>Extra Service</h3>
-              <div class="extra-service-item">
+              <div className="extra-service-item">
                 <p>Air Conditioner </p>
-                <div class="border-center"></div>
-                <div class="label-items-value">
-                  <span class="price">+24$</span>to price per person
+                <div className="border-center"></div>
+                <div className="label-items-value">
+                  <span className="price">+24$</span>to price per person
                 </div>
               </div>
-              <div class="extra-service-item">
+              <div className="extra-service-item">
                 <p>Free Internet </p>
-                <div class="border-center"></div>
-                <div class="label-items-value">
-                  <span class="price">+14$</span>to price per person
+                <div className="border-center"></div>
+                <div className="label-items-value">
+                  <span className="price">+14$</span>to price per person
                 </div>
               </div>
-              <div class="extra-service-item">
+              <div className="extra-service-item">
                 <p>LCD Television </p>
-                <div class="border-center"></div>
-                <div class="label-items-value">
-                  <span class="price">+15$</span>to price per person
+                <div className="border-center"></div>
+                <div className="label-items-value">
+                  <span className="price">+15$</span>to price per person
                 </div>
               </div>
-              <div class="extra-service-item">
+              <div className="extra-service-item">
                 <p>Microwave </p>
-                <div class="border-center"></div>
-                <div class="label-items-value">
-                  <span class="price">+30$</span>to price per person
+                <div className="border-center"></div>
+                <div className="label-items-value">
+                  <span className="price">+30$</span>to price per person
                 </div>
               </div>
             </div>
@@ -136,6 +140,39 @@ const Booking = () => {
           <div className="payment">
             <div className="box">
               <h3>Payment</h3>
+              <div className="prices">
+                <div className="prices-item">
+                  <p>Check in Date: </p>
+                  <div className="border-center"></div>
+                  <div className="label-items-value">
+                    {formObj?.checkInValue}
+                  </div>
+                </div>
+                <div className="prices-item">
+                  <p>Check Out Date: </p>
+                  <div className="border-center"></div>
+                  <div className="label-items-value">
+                    {formObj?.checkOutValue}
+                  </div>
+                </div>
+                <div className="prices-item">
+                  <p>Total Days: </p>
+                  <div className="border-center"></div>
+                  <div className="label-items-value">
+                    {`${formObj?.totalDaysValue} days`}
+                  </div>
+                </div>
+                <hr />
+                <div className="prices-item total">
+                  <p>Payment: </p>
+                  <div className="border-center"></div>
+                  <div className="label-items-value">
+                    {formObj?.totalDaysValue} x {`$${data?.price}`} ={" "}
+                    {`$${totalPayment}`}
+                  </div>
+                </div>
+              </div>
+              <button>Pay Now</button>
             </div>
           </div>
         </div>
