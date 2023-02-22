@@ -58,7 +58,7 @@
                             font-size: 22px;
 
                             span {
-                                color: black;
+                                color: #212121;
                             }
                         }
                     }
@@ -95,6 +95,100 @@
                             }
                         }
                     }
+                }
+            }
+        }
+    }
+
+
+    .room-details {
+        padding: 40px 0 70px;
+
+        .container {
+            padding: 0;
+            display: flex;
+            justify-content: space-between;
+
+            .room-about {
+                max-width: 856px;
+
+                .description {
+                    margin-bottom: 50px;
+
+                    h3 {
+                        font-size: 26px;
+                        font-weight: 700;
+                        margin: 0 0 20px;
+                        color: #212121;
+                    }
+
+                    p {
+                        color: #5a5959;
+                        line-height: 25px;
+                    }
+                }
+
+                .extra-service {
+                    margin-bottom: 50px;
+
+                    h3 {
+                        font-size: 26px;
+                        font-weight: 700;
+                        margin: 0 0 20px;
+                        color: #212121;
+                    }
+
+                    .extra-service-item {
+                        display: table;
+                        margin-bottom: 10px;
+
+                        p {
+                            color: #5A5959;
+                            position: relative;
+                            display: table-cell;
+                            width: 1%;
+                            white-space: nowrap;
+                            padding: 0;
+                        }
+
+                        .border-center {
+                            position: relative;
+                            display: table-cell;
+                            height: 3px;
+                            width: 98%;
+                            z-index: 1;
+                            background-image: radial-gradient(circle closest-side, #cdcdcd 99%, transparent 100%);
+                            background-position: 50% 70%;
+                            background-size: 6px 2px;
+                            background-repeat: repeat-x;
+                        }
+
+                        .label-items-value {
+                            position: relative;
+                            display: table-cell;
+                            width: 1%;
+                            white-space: nowrap;
+                            padding: 0;
+                            color: #5a5959;
+
+                            .price {
+                                color: #F4A460;
+                                margin: 0 6px 0 0;
+                                font-size: 18px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .payment {
+                max-width: 416px;
+                width: 100%;
+                margin-left: 30px;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+                .box {
+                    padding: 30px;
                 }
             }
         }

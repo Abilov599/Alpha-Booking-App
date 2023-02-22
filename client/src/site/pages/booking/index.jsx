@@ -94,6 +94,52 @@ const Booking = () => {
           </div>
         </div>
       </section>
+      <section className="room-details">
+        <div className="container">
+          <div className="room-about">
+            <div className="description">
+              <h3>Description</h3>
+              <p>{data?.description}</p>
+            </div>
+            <div class="extra-service">
+              <h3>Extra Service</h3>
+              <div class="extra-service-item">
+                <p>Air Conditioner </p>
+                <div class="border-center"></div>
+                <div class="label-items-value">
+                  <span class="price">+24$</span>to price per person
+                </div>
+              </div>
+              <div class="extra-service-item">
+                <p>Free Internet </p>
+                <div class="border-center"></div>
+                <div class="label-items-value">
+                  <span class="price">+14$</span>to price per person
+                </div>
+              </div>
+              <div class="extra-service-item">
+                <p>LCD Television </p>
+                <div class="border-center"></div>
+                <div class="label-items-value">
+                  <span class="price">+15$</span>to price per person
+                </div>
+              </div>
+              <div class="extra-service-item">
+                <p>Microwave </p>
+                <div class="border-center"></div>
+                <div class="label-items-value">
+                  <span class="price">+30$</span>to price per person
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="payment">
+            <div className="box">
+              <h3>Payment</h3>
+            </div>
+          </div>
+        </div>
+      </section>
     </main>
   );
 };
