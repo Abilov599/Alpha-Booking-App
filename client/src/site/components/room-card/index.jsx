@@ -42,7 +42,7 @@ const RoomCard = () => {
                 </div>
                 <div className="card-details">
                   <h3>
-                    <Link to={`/booking/${room._id}`}>{room.name}</Link>
+                    <Link to={`/booking/${room._id}`}>{room.type}</Link>
                   </h3>
                   <p>
                     <Link to="#">
