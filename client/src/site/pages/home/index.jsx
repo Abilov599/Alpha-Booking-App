@@ -19,7 +19,7 @@ const Home = () => {
               Lorem ipsum dolor sit amet, conconsectetuer adipiscing elit Lorem
               ipsum dolor sit amet, conconsectetuer
             </p>
-            <Link to="/booking">Get Started Now</Link>
+            <Link to="/rooms">Get Started Now</Link>
           </div>
           <SearchForm />
         </div>

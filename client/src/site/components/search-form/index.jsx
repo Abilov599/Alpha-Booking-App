@@ -86,7 +86,7 @@ const SearchForm = () => {
     // navigate("/rooms");
   };
 
-  const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
+  // const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
 
   return (
     <div className="search-room">

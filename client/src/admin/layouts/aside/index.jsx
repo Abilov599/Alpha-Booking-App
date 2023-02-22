@@ -7,8 +7,10 @@ const Aside = () => {
   return (
     <main id="aside">
       <nav>
-        <div className="logo">
-          <img src={logo} alt="" />
+        <div to="/" className="logo">
+          <NavLink to="/">
+            <img src={logo} alt="" />
+          </NavLink>
         </div>
         <ul>
           <li>
