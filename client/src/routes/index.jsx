@@ -8,10 +8,10 @@ import SignUp from "./../site/pages/sign-up/index";
 import SiteRoot from "./../site/root/index";
 
 import AdminHome from "./../admin/pages/home/index";
-import AdminLogin from "./../admin/pages/login/index";
 import AdminRoot from "./../admin/root/index";
 import Booking from "../site/pages/booking";
 import NotFound from "../site/pages/error";
+import AllUsers from "../admin/pages/all-users/index";
 
 const Routing = () => {
   return (
@@ -26,7 +26,7 @@ const Routing = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/admin" element={<AdminRoot />}>
         <Route index element={<AdminHome />} />
-        <Route path="sign-in" element={<AdminLogin />} />
+        <Route path="all-users" element={<AllUsers />} />
       </Route>
     </Routes>
   );
