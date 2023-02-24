@@ -21,8 +21,6 @@ const SearchForm = () => {
 
   const dateFormatList = "DD-MM-YYYY";
 
-  console.log(checkInValue, checkOutValue);
-
   const totalDaysValue = () => {
     if (
       moment
@@ -70,8 +68,6 @@ const SearchForm = () => {
     childrenValue: childrenValue,
     totalDaysValue: totalDaysValue(),
   };
-
-  console.log(obj.totalDaysValue);
 
   const handleSubmit = (e) => {
     e.preventDefault();

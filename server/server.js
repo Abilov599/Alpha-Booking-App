@@ -5,7 +5,7 @@ import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import { RoomRoute } from "./routes/Room.js";
 import { UserRoute } from "./routes/User.js";
-import { BookingRoute } from "./routes/Booking.js";
+import { BookingsRoute } from "./routes/Booking.js";
 // import { multer } from "multer";
 
 //App config
@@ -19,7 +19,7 @@ mongoose.set("strictQuery", false);
 //Routes
 app.use("/api", RoomRoute);
 app.use("/api", UserRoute);
-app.use("/api", BookingRoute);
+app.use("/api", BookingsRoute);
 
 const PORT = process.env.PORT || 3000;
 const DB = process.env.DB_URL.replace("<password>", process.env.PASSWORD);

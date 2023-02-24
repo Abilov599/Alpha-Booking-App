@@ -1,12 +1,29 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCardDataById } from "../../../redux/slice/getCardDataById";
 import { Helmet } from "react-helmet";
 import Slider from "react-slick";
+import { fetchUserAuth } from "./../../../redux/slice/userAuthSlice";
+import axios from "axios";
+import { Alert, Modal } from "antd";
 
 const Booking = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [response, setResponse] = useState(null);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
+
   const { roomID } = useParams();
 
   const dispatch = useDispatch();
@@ -14,11 +31,47 @@ const Booking = () => {
   const { loading, data, error } = useSelector(
     (state) => state.getCardDataById
   );
+  const user = useSelector((state) => state.userAuthSlice);
 
   useEffect(() => {
     dispatch(fetchCardDataById(roomID));
+    dispatch(fetchUserAuth());
   }, [dispatch]);
 
+  const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
+
+  const totalAmount = formObj?.totalDaysValue * data?.price;
+
+  const bookRoom = async () => {
+    const bookingDetails = {
+      room: data && data,
+      user: user?.data,
+      checkInDate: formObj?.checkInValue,
+      checkOutDate: formObj?.checkOutValue,
+      totalDays: formObj?.totalDaysValue,
+      totalAmount: totalAmount,
+      childCount: formObj?.childrenValue,
+      adultCount: formObj?.adultsValue,
+      transactionId: data?._id + user?.data?._id,
+    };
+    try {
+      const res = axios.post(
+        "http://localhost:8080/api/bookings/",
+        bookingDetails
+      ).data;
+      setResponse(res);
+      res.message && showModal();
+    } catch (error) {
+      () => (
+        <Alert
+          message={error}
+          description="Booking Failed!"
+          type="error"
+          showIcon
+        />
+      );
+    }
+  };
   const settings = {
     dots: false,
     arrows: false,
@@ -29,10 +82,6 @@ const Booking = () => {
     speed: 500,
     autoplaySpeed: 3000,
   };
-
-  const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
-
-  const totalPayment = formObj?.totalDaysValue * data?.price;
 
   return (
     <main id="booking">
@@ -51,6 +100,16 @@ const Booking = () => {
           })}
         </Slider>
       </section>
+      {/* <Modal
+          title="Basic Modal"
+          open={isModalOpen}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+          <p>Some contents...</p>
+        </Modal> */}
       <section className="main-info">
         <div className="container">
           <div className="box">
@@ -164,15 +223,15 @@ const Booking = () => {
                 </div>
                 <hr />
                 <div className="prices-item total">
-                  <p>Payment: </p>
+                  <p>Total Amount: </p>
                   <div className="border-center"></div>
                   <div className="label-items-value">
-                    {formObj?.totalDaysValue} x {`$${data?.price}`} ={" "}
-                    {`$${totalPayment}`}
+                    {formObj?.totalDaysValue} x {`$${data?.price}`} =
+                    {`$${totalAmount}`}
                   </div>
                 </div>
               </div>
-              <button>Pay Now</button>
+              <button onClick={() => bookRoom()}>Pay Now</button>
             </div>
           </div>
         </div>
