@@ -7,7 +7,7 @@ import { Helmet } from "react-helmet";
 import Slider from "react-slick";
 import { fetchUserAuth } from "./../../../redux/slice/userAuthSlice";
 import axios from "axios";
-import { Alert, Modal } from "antd";
+import { Alert, Modal, Popconfirm } from "antd";
 
 const Booking = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -60,16 +60,9 @@ const Booking = () => {
         bookingDetails
       ).data;
       setResponse(res);
-      res.message && showModal();
+      showModal();
     } catch (error) {
-      () => (
-        <Alert
-          message={error}
-          description="Booking Failed!"
-          type="error"
-          showIcon
-        />
-      );
+      throw error;
     }
   };
   const settings = {
@@ -100,16 +93,19 @@ const Booking = () => {
           })}
         </Slider>
       </section>
-      {/* <Modal
-          title="Basic Modal"
-          open={isModalOpen}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-          <p>Some contents...</p>
-        </Modal> */}
+      <Modal
+        title="Payment"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+      >
+        <Alert
+          message="Room booked"
+          description="Click Ok and go to My Bookings"
+          type="success"
+          showIcon
+        />
+      </Modal>
       <section className="main-info">
         <div className="container">
           <div className="box">
@@ -231,7 +227,16 @@ const Booking = () => {
                   </div>
                 </div>
               </div>
-              <button onClick={() => bookRoom()}>Pay Now</button>
+              <Popconfirm
+                placement="bottom"
+                title={"Payment confirmation"}
+                description={"Are You Sure?"}
+                onConfirm={bookRoom}
+                okText="Yes"
+                cancelText="No"
+              >
+                <button>Pay Now</button>
+              </Popconfirm>
             </div>
           </div>
         </div>
