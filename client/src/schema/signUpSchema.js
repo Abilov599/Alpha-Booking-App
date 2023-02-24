@@ -7,7 +7,7 @@ export const signUpSchema = Yup.object().shape({
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(2, "Too Short!")
+    .min(8, "Too Short!")
     .max(50, "Too Long!")
     .required("Required"),
   confirmPassword: Yup.string()
