@@ -7,4 +7,4 @@ router.get("/bookings/:id", );
 router.post("/bookings", );
 router.delete("/bookings/:id", );
 
-export { router as BookingRoute };
+export { router as BookingsRoute };
