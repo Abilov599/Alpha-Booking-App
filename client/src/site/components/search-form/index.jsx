@@ -1,10 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./index.scss";
 import { DatePicker, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCardData } from "../../../redux/slice/getCardDataSlice";
 
 const SearchForm = () => {
+  const duplicateData = useSelector((state) => state.getCardData.data);
+  const dispatch = useDispatch();
+
+  const { checkInDate, checkOutDate } =
+    JSON.parse(sessionStorage.getItem("formObj")) ?? {};
+
+  useEffect(() => {
+    dispatch(fetchCardData());
+  }, [dispatch]);
+
   let today = new Date();
   let date = today.toJSON().slice(0, 10);
   let nDate =
@@ -69,20 +81,56 @@ const SearchForm = () => {
     totalDaysValue: totalDaysValue(),
   };
 
+  const filterByDates = () => {
+    var tempRooms = [];
+    var availability = false;
+
+    for (const room of duplicateData) {
+      if (room.currentBookings.length > 0) {
+        for (const booking of room.currentBookings) {
+          if (
+            !moment(
+              moment(checkInDate).isBetween(
+                booking.checkInDate,
+                booking.checkOutDate
+              )
+            ) &&
+            !moment(
+              moment(checkOutDate).isBetween(
+                booking.checkInDate,
+                booking.checkOutDate
+              )
+            )
+          ) {
+            if (
+              checkInDate !== booking.checkInDate &&
+              checkInDate !== booking.checkOutDate &&
+              checkOutDate !== booking.checkInDate &&
+              checkOutDate !== booking.checkOutDate
+            ) {
+              availability = true;
+            }
+          }
+        }
+      }
+
+      if (availability == true || room.currentBookings.length == 0) {
+        tempRooms.push(room);
+        dispatch(fetchCardData(tempRooms));
+      }
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     checkInValue &&
       checkOutValue &&
       sessionStorage.setItem("formObj", JSON.stringify(obj));
+    filterByDates();
     if (pathname === "/") {
       navigate("/rooms");
     }
-    // if (params) {
-    // }
-    // navigate("/rooms");
   };
-
-  // const formObj = JSON.parse(sessionStorage.getItem("formObj")) ?? {};
 
   return (
     <div className="search-room">

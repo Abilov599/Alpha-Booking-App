@@ -7,10 +7,14 @@ const initialState = {
   error: undefined,
 };
 
-export const fetchCardData = createAsyncThunk("fetchCardData", async () => {
+export const fetchCardData = createAsyncThunk("fetchCardData", async (obj) => {
   try {
-    const res = await axios.get("http://localhost:8080/api/rooms");
-    return res.data;
+    if (obj) {
+      return obj;
+    } else {
+      const res = await axios.get("http://localhost:8080/api/rooms");
+      return res.data;
+    }
   } catch (error) {
     throw error;
   }
