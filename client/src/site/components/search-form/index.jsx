@@ -81,45 +81,69 @@ const SearchForm = () => {
     totalDaysValue: totalDaysValue(),
   };
 
-  const filterByDates = () => {
-    var tempRooms = [];
-    var availability = false;
+  // const filterByDates = () => {
+  //   var tempRooms = [];
+  //   var availability = false;
 
-    for (const room of duplicateData) {
-      if (room.currentBookings.length > 0) {
-        for (const booking of room.currentBookings) {
-          if (
-            !moment(
-              moment(checkInDate).isBetween(
-                booking.checkInDate,
-                booking.checkOutDate
-              )
-            ) &&
-            !moment(
-              moment(checkOutDate).isBetween(
-                booking.checkInDate,
-                booking.checkOutDate
-              )
-            )
-          ) {
-            if (
-              checkInDate !== booking.checkInDate &&
-              checkInDate !== booking.checkOutDate &&
-              checkOutDate !== booking.checkInDate &&
-              checkOutDate !== booking.checkOutDate
-            ) {
-              availability = true;
-            }
-          }
-        }
-      }
+  //   for (const room of duplicateData) {
+  //     if (room.currentBookings.length > 0) {
+  //       for (const booking of room.currentBookings) {
+  //         if (
+  //           !moment(checkInDate).isBetween(
+  //             booking.checkInDate,
+  //             booking.checkOutDate
+  //           ) &&
+  //           !moment(checkInDate).isBetween(
+  //             booking.checkInDate,
+  //             booking.checkOutDate
+  //           )
+  //         ) {
+  //           if (
+  //             checkInValue !== booking.checkInDate &&
+  //             checkInValue !== booking.checkOutDate &&
+  //             checkOutValue !== booking.checkInDate &&
+  //             checkOutValue !== booking.checkOutDate
+  //           ) {
+  //             availability = true;
+  //           }
+  //         }
+  //       }
+  //     }
 
-      if (availability == true || room.currentBookings.length == 0) {
-        tempRooms.push(room);
-        dispatch(fetchCardData(tempRooms));
-      }
-    }
-  };
+  //     if (availability == true || room.currentBookings.length == 0) {
+  //       tempRooms.push(room);
+  //     }
+  //     dispatch(fetchCardData(tempRooms));
+  //   }
+  // };
+
+  // const filterByDates = () => {
+  //     for (const room of duplicateData) {
+  //       if (room.currentBookings.length > 0) {
+  //         for (const booking of room.currentBookings) {
+  //           if (
+  //             !moment(checkInDate).isBetween(
+  //               booking.checkInDate,
+  //               booking.checkOutDate
+  //             ) &&
+  //             !moment(checkInDate).isBetween(
+  //               booking.checkInDate,
+  //               booking.checkOutDate
+  //             )
+  //           ) {
+  //             if (
+  //               checkInValue !== booking.checkInDate &&
+  //               checkInValue !== booking.checkOutDate &&
+  //               checkOutValue !== booking.checkInDate &&
+  //               checkOutValue !== booking.checkOutDate
+  //             ) {
+  //               availability = true;
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  // };
 
   const handleSubmit = (e) => {
     e.preventDefault();
