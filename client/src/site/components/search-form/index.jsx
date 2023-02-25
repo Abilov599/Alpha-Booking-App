@@ -73,7 +73,7 @@ const SearchForm = () => {
     e.preventDefault();
     checkInValue &&
       checkOutValue &&
-      localStorage.setItem("formObj", JSON.stringify(obj));
+      sessionStorage.setItem("formObj", JSON.stringify(obj));
     if (pathname === "/") {
       navigate("/rooms");
     }
@@ -82,7 +82,7 @@ const SearchForm = () => {
     // navigate("/rooms");
   };
 
-  // const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
+  // const formObj = JSON.parse(sessionStorage.getItem("formObj")) ?? {};
 
   return (
     <div className="search-room">

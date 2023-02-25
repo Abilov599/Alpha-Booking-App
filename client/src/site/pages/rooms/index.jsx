@@ -66,35 +66,6 @@ const Rooms = () => {
       }
     />
   );
-
-  // return isAuth ? (
-  //   <main id="rooms">
-  //     <Helmet>
-  //       <meta charSet="utf-8" />
-  //       <title>Rooms</title>
-  //     </Helmet>
-  //     <section className="sub-banner">
-  //       <div className="container">
-  //         <h1>Rooms</h1>
-  //         <nav>
-  //           <ol>
-  //             <li>
-  //               <Link to="/">Home</Link>
-  //             </li>
-  //             <li className="active">Rooms</li>
-  //           </ol>
-  //         </nav>
-  //       </div>
-  //     </section>
-  //     <section className="room-cards">
-  //       <div className="container">
-  //         <RoomCard />
-  //       </div>
-  //     </section>
-  //   </main>
-  // ) : (
-  //   <Link to="/sign-in">Log in First</Link>
-  // );
 };
 
 export default Rooms;

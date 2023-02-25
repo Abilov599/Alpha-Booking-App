@@ -38,7 +38,7 @@ const Booking = () => {
     dispatch(fetchUserAuth());
   }, [dispatch]);
 
-  const formObj = JSON.parse(localStorage.getItem("formObj")) ?? {};
+  const formObj = JSON.parse(sessionStorage.getItem("formObj")) ?? {};
 
   const totalAmount = formObj?.totalDaysValue * data?.price;
 
