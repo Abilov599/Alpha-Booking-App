@@ -30,8 +30,6 @@ const Header = () => {
     dispatch(fetchUserAuth());
   }, [dispatch]);
 
-  // console.log(data);
-
   return (
     <header className={pathname == "/" ? "bg-transparent" : ""}>
       <div className="container">
@@ -105,7 +103,9 @@ const Header = () => {
                         <Link
                           to="/sign-in"
                           onClick={() =>
-                            removeCookie(["jwt"]).then(() => fetchUserAuth())
+                            removeCookie(["jwt"]).then(() =>
+                              dispatch(fetchUserAuth())
+                            )
                           }
                         >
                           Log out
