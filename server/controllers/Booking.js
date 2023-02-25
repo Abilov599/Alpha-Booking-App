@@ -1,4 +1,5 @@
 import { Bookings } from "../models/Booking.js";
+import { Rooms } from "./../models/Room.js";
 
 export const getAllBookings = async (_req, res) => {
   try {
@@ -32,7 +33,18 @@ export const deleteBookingById = async (req, res) => {
 export const postBooking = async (req, res) => {
   try {
     const newBooking = new Bookings(req.body);
-    newBooking.save();
+    const booking = await newBooking.save();
+    const roomTemp = await Rooms.findOne({ _id: req.body.room._id });
+    roomTemp.currentBookings.push({
+      bookingId: booking._id,
+      userId: booking.user._id,
+      checkInDate: booking.checkInDate,
+      checkOutDate: booking.checkOutDate,
+      status: booking.status,
+    });
+
+    await roomTemp.save();
+
     res.status(200).send({ message: "SUCCESS" });
   } catch (error) {
     res.status(500).send({ message: error });
