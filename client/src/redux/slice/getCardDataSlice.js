@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import moment from "moment";
 
 const initialState = {
   loading: false,
@@ -10,7 +11,45 @@ const initialState = {
 export const fetchCardData = createAsyncThunk("fetchCardData", async (obj) => {
   try {
     if (obj) {
-      return obj;
+      const { checkInDate, checkOutDate } =
+        JSON.parse(sessionStorage.getItem("formObj")) ?? {};
+      let res = await axios.get("http://localhost:8080/api/rooms").data;
+      var tempRooms = [];
+      var availability = false;
+
+      console.log(tempRooms);
+
+      for (const room of res) {
+        if (room.currentBookings.length > 0) {
+          for (const booking of room.currentBookings) {
+            if (
+              !moment(checkInDate).isBetween(
+                booking.checkInDate,
+                booking.checkOutDate
+              ) &&
+              !moment(checkOutDate).isBetween(
+                booking.checkInDate,
+                booking.checkOutDate
+              )
+            ) {
+              console.log(checkInDate, checkOutDate);
+              if (
+                checkInDate !== booking.checkInDate &&
+                checkInDate !== booking.checkOutDate &&
+                checkOutDate !== booking.checkInDate &&
+                checkOutDate !== booking.checkOutDate
+              ) {
+                availability = true;
+              }
+            }
+          }
+        }
+
+        if (availability == true || room.currentBookings.length == 0) {
+          tempRooms.push(room);
+        }
+      }
+      return tempRooms;
     } else {
       const res = await axios.get("http://localhost:8080/api/rooms");
       return res.data;

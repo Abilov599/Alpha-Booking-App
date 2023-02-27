@@ -3,15 +3,11 @@ import "./index.scss";
 import { DatePicker, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchCardData } from "../../../redux/slice/getCardDataSlice";
 
 const SearchForm = () => {
-  const duplicateData = useSelector((state) => state.getCardData.data);
   const dispatch = useDispatch();
-
-  const { checkInDate, checkOutDate } =
-    JSON.parse(sessionStorage.getItem("formObj")) ?? {};
 
   useEffect(() => {
     dispatch(fetchCardData());
@@ -81,76 +77,12 @@ const SearchForm = () => {
     totalDaysValue: totalDaysValue(),
   };
 
-  // const filterByDates = () => {
-  //   var tempRooms = [];
-  //   var availability = false;
-
-  //   for (const room of duplicateData) {
-  //     if (room.currentBookings.length > 0) {
-  //       for (const booking of room.currentBookings) {
-  //         if (
-  //           !moment(checkInDate).isBetween(
-  //             booking.checkInDate,
-  //             booking.checkOutDate
-  //           ) &&
-  //           !moment(checkInDate).isBetween(
-  //             booking.checkInDate,
-  //             booking.checkOutDate
-  //           )
-  //         ) {
-  //           if (
-  //             checkInValue !== booking.checkInDate &&
-  //             checkInValue !== booking.checkOutDate &&
-  //             checkOutValue !== booking.checkInDate &&
-  //             checkOutValue !== booking.checkOutDate
-  //           ) {
-  //             availability = true;
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //     if (availability == true || room.currentBookings.length == 0) {
-  //       tempRooms.push(room);
-  //     }
-  //     dispatch(fetchCardData(tempRooms));
-  //   }
-  // };
-
-  // const filterByDates = () => {
-  //     for (const room of duplicateData) {
-  //       if (room.currentBookings.length > 0) {
-  //         for (const booking of room.currentBookings) {
-  //           if (
-  //             !moment(checkInDate).isBetween(
-  //               booking.checkInDate,
-  //               booking.checkOutDate
-  //             ) &&
-  //             !moment(checkInDate).isBetween(
-  //               booking.checkInDate,
-  //               booking.checkOutDate
-  //             )
-  //           ) {
-  //             if (
-  //               checkInValue !== booking.checkInDate &&
-  //               checkInValue !== booking.checkOutDate &&
-  //               checkOutValue !== booking.checkInDate &&
-  //               checkOutValue !== booking.checkOutDate
-  //             ) {
-  //               availability = true;
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     checkInValue &&
       checkOutValue &&
       sessionStorage.setItem("formObj", JSON.stringify(obj));
-    filterByDates();
+    dispatch(fetchCardData(1));
     if (pathname === "/") {
       navigate("/rooms");
     }

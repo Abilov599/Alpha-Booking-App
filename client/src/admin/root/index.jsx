@@ -37,9 +37,9 @@ const AdminRoot = () => {
       }}
     >
       <Aside />
-      <div>
+      <>
         <Outlet />
-      </div>
+      </>
     </div>
   ) : (
     <Result

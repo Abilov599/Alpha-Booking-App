@@ -52,6 +52,30 @@ export const registerUser = async (req, res) => {
   }
 };
 
+export const makeAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await Users.findById(id);
+    user.isAdmin = true;
+    await user.save();
+    res.status(200).send({ message: "SUCCESS" });
+  } catch (error) {
+    res.status(500).send({ message: error });
+  }
+};
+
+export const removeAdmin = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const user = await Users.findById(id);
+    user.isAdmin = false;
+    await user.save();
+    res.status(200).send({ message: "SUCCESS" });
+  } catch (error) {
+    res.status(500).send({ message: error });
+  }
+};
+
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {

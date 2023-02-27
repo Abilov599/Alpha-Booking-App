@@ -11,7 +11,7 @@ import AdminHome from "./../admin/pages/home/index";
 import AdminRoot from "./../admin/root/index";
 import Booking from "../site/pages/booking";
 import NotFound from "../site/pages/error";
-// import AllUsers from "../admin/pages/all-users";
+import AllUsers from "../admin/pages/all-users";
 
 const Routing = () => {
   return (
@@ -26,7 +26,7 @@ const Routing = () => {
       <Route path="*" element={<NotFound />} />
       <Route path="/admin" element={<AdminRoot />}>
         <Route index element={<AdminHome />} />
-        {/* <Route path="all-users" element={<AllUsers />} /> */}
+        <Route path="all-users" element={<AllUsers />} />
       </Route>
     </Routes>
   );
