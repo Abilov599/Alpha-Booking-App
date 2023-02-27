@@ -4,6 +4,7 @@ import userAuthSlice from "../slice/userAuthSlice";
 import getCardData from "../slice/getCardDataSlice";
 import getCardDataById from "../slice/getCardDataById";
 import getAllUsers from "../slice/getAllUsers";
+import getBookingsByUserId from "../slice/getBookingsByUserId";
 
 export const store = configureStore({
   reducer: {
@@ -11,6 +12,7 @@ export const store = configureStore({
     getCardData: getCardData,
     getCardDataById: getCardDataById,
     getAllUsers: getAllUsers,
+    getBookingsByUserId: getBookingsByUserId,
   },
   middleware: [thunk],
 });
