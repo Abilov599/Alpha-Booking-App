@@ -14,8 +14,6 @@ const Booking = () => {
 
   const navigate = useNavigate();
 
-  const [response, setResponse] = useState(null);
-
   const { roomID } = useParams();
 
   const dispatch = useDispatch();
@@ -49,6 +47,7 @@ const Booking = () => {
     const bookingDetails = {
       room: data && data,
       user: user?.data,
+      userId: user?.data._id,
       checkInDate: formObj?.checkInValue,
       checkOutDate: formObj?.checkOutValue,
       totalDays: formObj?.totalDaysValue,
@@ -62,7 +61,6 @@ const Booking = () => {
         "http://localhost:8080/api/bookings/",
         bookingDetails
       ).data;
-      setResponse(res);
       showModal();
     } catch (error) {
       throw error;
