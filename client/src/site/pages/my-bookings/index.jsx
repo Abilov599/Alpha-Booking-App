@@ -1,4 +1,5 @@
 import { Button, message, Popconfirm, Space, Spin, Table } from "antd";
+import axios from "axios";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -17,7 +18,8 @@ const MyBookings = () => {
     dispatch(fetchBookingsByUserId(userID));
   }, [dispatch]);
 
-  const confirm = () => {
+  const confirm = (id) => {
+    axios.patch();
     message.success("Booking Canceled");
   };
 
@@ -75,7 +77,7 @@ const MyBookings = () => {
           placement="bottomRight"
           title={"Are you sure?"}
           description={"Are you sure to cancel booking?"}
-          onConfirm={confirm}
+          onConfirm={() => confirm(id)}
           okText="Yes"
           cancelText="No"
         >
