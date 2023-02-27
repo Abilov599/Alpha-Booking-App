@@ -13,6 +13,7 @@ import Booking from "../site/pages/booking";
 import NotFound from "../site/pages/error";
 import AllUsers from "../admin/pages/all-users";
 import BookingsAdmin from "../admin/pages/bookings";
+import MyBookings from "../site/pages/my-bookings";
 
 const Routing = () => {
   return (
@@ -21,6 +22,7 @@ const Routing = () => {
         <Route index element={<Home />} />
         <Route path="rooms" element={<Rooms />} />
         <Route path="booking/:roomID/" element={<Booking />} />
+        <Route path="bookings/:userID/" element={<MyBookings />} />
         <Route path="sign-up" element={<SignUp />} />
         <Route path="sign-in" element={<SignIn />} />
       </Route>

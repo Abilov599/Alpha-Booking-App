@@ -97,7 +97,7 @@ const Header = () => {
                         </Menu.Item>
                       )}
                       <Menu.Item key="2">
-                        <Link to={`/bookings/${data._id}`}>My Bookings</Link>
+                        <Link to={`/bookings/${data?._id}`}>My Bookings</Link>
                       </Menu.Item>
                       <Menu.Item key="3">
                         <Link
