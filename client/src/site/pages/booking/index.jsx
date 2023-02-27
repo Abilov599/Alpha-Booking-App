@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchCardDataById } from "../../../redux/slice/getCardDataById";
 import { Helmet } from "react-helmet";
@@ -12,17 +12,9 @@ import { Alert, Modal, Popconfirm } from "antd";
 const Booking = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [response, setResponse] = useState(null);
+  const navigate = useNavigate();
 
-  const showModal = () => {
-    setIsModalOpen(true);
-  };
-  const handleOk = () => {
-    setIsModalOpen(false);
-  };
-  const handleCancel = () => {
-    setIsModalOpen(false);
-  };
+  const [response, setResponse] = useState(null);
 
   const { roomID } = useParams();
 
@@ -32,6 +24,17 @@ const Booking = () => {
     (state) => state.getCardDataById
   );
   const user = useSelector((state) => state.userAuthSlice);
+
+  const showModal = () => {
+    setIsModalOpen(true);
+  };
+  const handleOk = () => {
+    setIsModalOpen(false);
+    navigate(`/bookings/${user?.data._id}`);
+  };
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   useEffect(() => {
     dispatch(fetchCardDataById(roomID));
