@@ -3,10 +3,11 @@ import "./index.scss";
 import { DatePicker, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchCardData } from "../../../redux/slice/getCardDataSlice";
 
 const SearchForm = () => {
+  const duplicateData = useSelector((state) => state.getCardData.data);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,12 +78,51 @@ const SearchForm = () => {
     totalDaysValue: totalDaysValue(),
   };
 
+  const checkInDate = moment(checkInValue, dateFormatList);
+  const checkOutDate = moment(checkOutValue, dateFormatList);
+
+  const filterByDates = () => {
+    var tempRooms = [];
+    var availability = false;
+
+    for (const room of duplicateData) {
+      if (room.currentBookings.length > 0) {
+        for (const booking of room.currentBookings) {
+          if (
+            !checkInDate.isBetween(
+              moment(booking.checkInDate, dateFormatList),
+              moment(booking.checkOutDate, dateFormatList)
+            ) &&
+            !checkOutDate.isBetween(
+              moment(booking.checkInDate, dateFormatList),
+              moment(booking.checkOutDate, dateFormatList)
+            )
+          ) {
+            if (
+              checkInValue !== booking.checkInDate &&
+              checkInValue !== booking.checkOutDate &&
+              checkOutValue !== booking.checkInDate &&
+              checkOutValue !== booking.checkOutDate
+            ) {
+              availability = true;
+            }
+          }
+        }
+      }
+
+      if (availability == true || room.currentBookings.length == 0) {
+        tempRooms.push(room);
+      }
+      dispatch(fetchCardData(tempRooms));
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     checkInValue &&
       checkOutValue &&
       sessionStorage.setItem("formObj", JSON.stringify(obj));
-    dispatch(fetchCardData(1));
+    filterByDates();
     if (pathname === "/") {
       navigate("/rooms");
     }
@@ -96,14 +136,19 @@ const SearchForm = () => {
         </h4>
         <div className="form-group">
           <DatePicker
-            onChange={(_date, dateString) => setCheckInValue(dateString)}
+            onChange={(_date, dateString) => {
+              setCheckInValue(dateString);
+              dispatch(fetchCardData());
+            }}
             placeholder="Check In"
             format={dateFormatList}
           />
         </div>
         <div className="form-group">
           <DatePicker
-            onChange={(_date, dateString) => setCheckOutValue(dateString)}
+            onChange={(_date, dateString) => {
+              setCheckOutValue(dateString);
+            }}
             placeholder="Check Out"
             format={dateFormatList}
           />
