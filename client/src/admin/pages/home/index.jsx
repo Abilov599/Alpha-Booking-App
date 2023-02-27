@@ -4,13 +4,13 @@ import "./index.scss";
 
 const AdminHome = () => {
   return (
-    <div>
+    <main id="admin-home">
       <Helmet>
         <meta charSet="utf-8" />
         <title>Dashboard</title>
       </Helmet>
-      AdminHome
-    </div>
+      
+    </main>
   );
 };
 

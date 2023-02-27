@@ -12,6 +12,7 @@ import AdminRoot from "./../admin/root/index";
 import Booking from "../site/pages/booking";
 import NotFound from "../site/pages/error";
 import AllUsers from "../admin/pages/all-users";
+import BookingsAdmin from "../admin/pages/bookings";
 
 const Routing = () => {
   return (
@@ -27,6 +28,7 @@ const Routing = () => {
       <Route path="/admin" element={<AdminRoot />}>
         <Route index element={<AdminHome />} />
         <Route path="all-users" element={<AllUsers />} />
+        <Route path="bookings" element={<BookingsAdmin />} />
       </Route>
     </Routes>
   );
