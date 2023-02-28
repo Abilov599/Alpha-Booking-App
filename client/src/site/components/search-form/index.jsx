@@ -38,7 +38,7 @@ const SearchForm = () => {
             moment(checkInValue, dateFormatList)
           )
         )
-        .asDays() == 0
+        .asDays() === 0
     ) {
       return 1;
     }
@@ -82,9 +82,7 @@ const SearchForm = () => {
   const checkOutDate = moment(checkOutValue, dateFormatList);
 
   const filterByDates = () => {
-    var tempRooms = [];
-    var availability = false;
-
+    let tempRooms = [], availability = false;
     for (const room of duplicateData) {
       if (room.currentBookings.length > 0) {
         for (const booking of room.currentBookings) {
@@ -110,10 +108,11 @@ const SearchForm = () => {
         }
       }
 
-      if (availability == true || room.currentBookings.length == 0) {
+      if (availability === true || room.currentBookings.length === 0) {
         tempRooms.push(room);
       }
       dispatch(fetchCardData(tempRooms));
+      availability = false;
     }
   };
 
