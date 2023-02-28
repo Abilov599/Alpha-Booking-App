@@ -5,6 +5,7 @@ const bookingSchema = new Schema(
     room: { type: Object, required: true },
     user: { type: Object, required: true },
     userId: { type: String, required: true },
+    roomId: { type: String, required: true },
     transactionId: { type: String, required: true },
     checkInDate: { type: String, required: true },
     checkOutDate: { type: String, required: true },

@@ -48,6 +48,7 @@ const Booking = () => {
       room: data && data,
       user: user?.data,
       userId: user?.data._id,
+      roomId: data?._id,
       checkInDate: formObj?.checkInValue,
       checkOutDate: formObj?.checkOutValue,
       totalDays: formObj?.totalDaysValue,

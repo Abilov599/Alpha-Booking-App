@@ -18,8 +18,9 @@ const MyBookings = () => {
     dispatch(fetchBookingsByUserId(userID));
   }, [dispatch]);
 
-  const confirm = (id) => {
-    axios.patch();
+  const confirm = (bookingId, roomId) => {
+    console.log(bookingId, roomId);
+    // axios.post();
     message.success("Booking Canceled");
   };
 
@@ -71,13 +72,13 @@ const MyBookings = () => {
     },
     {
       title: "Cancel Booking",
-      dataIndex: "_id",
-      render: (id) => (
+      // dataIndex: "_id",
+      render: (booking) => (
         <Popconfirm
           placement="bottomRight"
           title={"Are you sure?"}
           description={"Are you sure to cancel booking?"}
-          onConfirm={() => confirm(id)}
+          onConfirm={() => confirm(booking._id, booking.roomId)}
           okText="Yes"
           cancelText="No"
         >
@@ -99,7 +100,6 @@ const MyBookings = () => {
     ) : (
       data?.map((bookings, i) => {
         const booking = [bookings];
-        console.log(booking);
         return (
           <Table
             key={i}
