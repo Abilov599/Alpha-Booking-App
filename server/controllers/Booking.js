@@ -1,6 +1,5 @@
 import { Bookings } from "../models/Booking.js";
 import { Rooms } from "./../models/Room.js";
-import { Users } from "./../models/User.js";
 
 export const getAllBookings = async (_req, res) => {
   try {
@@ -56,6 +55,25 @@ export const postBooking = async (req, res) => {
 
     await roomTemp.save();
 
+    res.status(200).send({ message: "SUCCESS" });
+  } catch (error) {
+    res.status(500).send({ message: error });
+  }
+};
+
+export const cancelBooking = async (req, res) => {
+  const { bookingId, roomId } = req.body;
+  try {
+    const bookingItem = await Bookings.findOne({ _id: bookingId });
+    bookingItem.status = "cancelled";
+    await bookingItem.save();
+    const room = await Rooms.findOne({ _id: roomId });
+    const bookings = room.currentBookings;
+    const temp = bookings.filter(
+      (booking) => booking.bookingId.toString() != bookingId
+    );
+    room.currentBookings = temp;
+    await room.save();
     res.status(200).send({ message: "SUCCESS" });
   } catch (error) {
     res.status(500).send({ message: error });

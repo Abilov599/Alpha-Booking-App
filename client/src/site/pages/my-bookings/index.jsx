@@ -1,12 +1,13 @@
 import { Button, message, Popconfirm, Space, Spin, Table } from "antd";
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBookingsByUserId } from "../../../redux/slice/getBookingsByUserId";
 import "./index.scss";
 
 const MyBookings = () => {
+  const [disabled, setDisabled] = useState(false);
   const { userID } = useParams();
   const { loading, data, error } = useSelector(
     (state) => state.getBookingsByUserId
@@ -14,15 +15,22 @@ const MyBookings = () => {
 
   const dispatch = useDispatch();
 
+  const confirm = async (bookingId, roomId) => {
+    try {
+      await axios.post("http://localhost:8080/api/cancel-booking", {
+        bookingId,
+        roomId,
+      }).data;
+      setDisabled(true);
+      message.success("Booking Canceled");
+    } catch (error) {
+      message.error(error.message);
+    }
+  };
+
   useEffect(() => {
     dispatch(fetchBookingsByUserId(userID));
   }, [dispatch]);
-
-  const confirm = (bookingId, roomId) => {
-    console.log(bookingId, roomId);
-    // axios.post();
-    message.success("Booking Canceled");
-  };
 
   const columns = [
     {
@@ -72,21 +80,32 @@ const MyBookings = () => {
     },
     {
       title: "Cancel Booking",
-      // dataIndex: "_id",
-      render: (booking) => (
-        <Popconfirm
-          placement="bottomRight"
-          title={"Are you sure?"}
-          description={"Are you sure to cancel booking?"}
-          onConfirm={() => confirm(booking._id, booking.roomId)}
-          okText="Yes"
-          cancelText="No"
-        >
-          <Button type="primary" danger>
-            Cancel
+      render: (booking) => {
+        return !disabled ? (
+          booking?.status === "booked" ? (
+            <Popconfirm
+              placement="bottomRight"
+              title={"Are you sure?"}
+              description={"Are you sure to cancel booking?"}
+              onConfirm={() => confirm(booking._id, booking.roomId)}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Button type="primary" danger>
+                Cancel
+              </Button>
+            </Popconfirm>
+          ) : (
+            <Button type="primary" danger disabled>
+              Canceled
+            </Button>
+          )
+        ) : (
+          <Button type="primary" danger disabled>
+            Canceled
           </Button>
-        </Popconfirm>
-      ),
+        );
+      },
     },
   ];
 
