@@ -1,13 +1,13 @@
-import { Button, message, Popconfirm, Space, Spin, Table } from "antd";
+import { Button, message, Popconfirm, Table } from "antd";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBookingsByUserId } from "../../../redux/slice/getBookingsByUserId";
 import "./index.scss";
 
 const MyBookings = () => {
-  const [disabled, setDisabled] = useState(false);
+  const btnRef = useRef();
   const { userID } = useParams();
   const { loading, data, error } = useSelector(
     (state) => state.getBookingsByUserId
@@ -21,7 +21,7 @@ const MyBookings = () => {
         bookingId,
         roomId,
       }).data;
-      setDisabled(true);
+      btnRef.current.disabled = true;
       message.success("Booking Canceled");
     } catch (error) {
       message.error(error.message);
@@ -81,25 +81,19 @@ const MyBookings = () => {
     {
       title: "Cancel Booking",
       render: (booking) => {
-        return !disabled ? (
-          booking?.status === "booked" ? (
-            <Popconfirm
-              placement="bottomRight"
-              title={"Are you sure?"}
-              description={"Are you sure to cancel booking?"}
-              onConfirm={() => confirm(booking._id, booking.roomId)}
-              okText="Yes"
-              cancelText="No"
-            >
-              <Button type="primary" danger>
-                Cancel
-              </Button>
-            </Popconfirm>
-          ) : (
-            <Button type="primary" danger disabled>
-              Canceled
+        return booking?.status === "booked" ? (
+          <Popconfirm
+            placement="bottomRight"
+            title={"Are you sure?"}
+            description={"Are you sure to cancel booking?"}
+            onConfirm={() => confirm(booking._id, booking.roomId)}
+            okText="Yes"
+            cancelText="No"
+          >
+            <Button type="primary" ref={btnRef} danger>
+              Cancel
             </Button>
-          )
+          </Popconfirm>
         ) : (
           <Button type="primary" danger disabled>
             Canceled
@@ -110,13 +104,7 @@ const MyBookings = () => {
   ];
 
   {
-    return loading ? (
-      <Space size="middle">
-        <Spin size="small" />
-        <Spin />
-        <Spin size="large" />
-      </Space>
-    ) : (
+    return data?.length > 0 ? (
       data?.map((bookings, i) => {
         const booking = [bookings];
         return (
@@ -129,6 +117,8 @@ const MyBookings = () => {
           />
         );
       })
+    ) : (
+      <Table dataSource={data} columns={columns} pagination={false} />
     );
   }
 };
