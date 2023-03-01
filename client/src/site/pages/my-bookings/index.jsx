@@ -1,6 +1,7 @@
 import { Button, message, Popconfirm, Table } from "antd";
 import axios from "axios";
 import React, { useEffect, useRef } from "react";
+import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { fetchBookingsByUserId } from "../../../redux/slice/getBookingsByUserId";
@@ -103,24 +104,30 @@ const MyBookings = () => {
     },
   ];
 
-  {
-    return data?.length > 0 ? (
-      data?.map((bookings, i) => {
-        const booking = [bookings];
-        return (
-          <Table
-            key={i}
-            rowKey="_id"
-            dataSource={booking}
-            columns={columns}
-            pagination={false}
-          />
-        );
-      })
-    ) : (
-      <Table dataSource={data} columns={columns} pagination={false} />
-    );
-  }
+  return (
+    <main id="my-bookings">
+      <Helmet>
+        <meta charSet="utf-8" />
+        <title>My Bookings</title>
+      </Helmet>
+      {data?.length > 0 ? (
+        data?.map((bookings, i) => {
+          const booking = [bookings];
+          return (
+            <Table
+              key={i}
+              rowKey="_id"
+              dataSource={booking}
+              columns={columns}
+              pagination={false}
+            />
+          );
+        })
+      ) : (
+        <Table dataSource={data} columns={columns} pagination={false} />
+      )}
+    </main>
+  );
 };
 
 export default MyBookings;
