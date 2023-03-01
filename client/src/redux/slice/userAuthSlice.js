@@ -7,12 +7,16 @@ const initialState = {
   error: undefined,
 };
 
-export const fetchUserAuth = createAsyncThunk("fetchUserAuth", async () => {
+export const fetchUserAuth = createAsyncThunk("fetchUserAuth", async (obj) => {
   try {
-    const res = await axios.get("http://localhost:8080/api/user", {
-      withCredentials: true,
-    });
-    return res.data;
+    if (obj) {
+      return null;
+    } else {
+      const res = await axios.get("http://localhost:8080/api/user", {
+        withCredentials: true,
+      });
+      return res.data;
+    }
   } catch (error) {
     throw error;
   }

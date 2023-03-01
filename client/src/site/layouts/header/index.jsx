@@ -1,6 +1,5 @@
 import { DownOutlined } from "@ant-design/icons";
-import { Dropdown, Menu, Space } from "antd";
-import axios from "axios";
+import { Dropdown, Menu, message, Space } from "antd";
 import { MDBContainer } from "mdb-react-ui-kit";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -102,11 +101,12 @@ const Header = () => {
                       <Menu.Item key="3">
                         <Link
                           to="/sign-in"
-                          onClick={() =>
-                            removeCookie(["jwt"]).then(() =>
-                              dispatch(fetchUserAuth())
-                            )
-                          }
+                          onClick={() => {
+                            removeCookie(["jwt"]);
+                            dispatch(fetchUserAuth(1)).then(() =>
+                              message.success("Signed out successfully!")
+                            );
+                          }}
                         >
                           Log out
                         </Link>
