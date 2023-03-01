@@ -27,6 +27,8 @@ export const postRoomSchema = Yup.object().shape({
     .max(5, "Too Much!")
     .required("Required"),
   maxChildCount: Yup.number().max(5, "Too Much!").required("Required"),
-  thumbnailImage: Yup.mixed().required("Required"),
-  images: Yup.mixed().required("Required"),
+  thumbnailImage: Yup.string().url("this must be url").required("Required"),
+  image1: Yup.string().url("this must be url").required("Required"),
+  image2: Yup.string().url("this must be url").required("Required"),
+  image3: Yup.string().url("this must be url").required("Required"),
 });
