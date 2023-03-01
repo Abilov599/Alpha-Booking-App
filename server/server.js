@@ -38,9 +38,5 @@ mongoose.connect(
       console.log("Error in DB connection: " + err);
     }
   },
-  app.listen(PORT, () =>
-    console.log(
-      `Example app listening on http://localhost:${PORT}/api/allUsers`
-    )
-  )
+  app.listen(PORT)
 );

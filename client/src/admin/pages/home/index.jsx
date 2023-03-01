@@ -72,8 +72,6 @@ const AdminHome = () => {
               thumbnailImage: thumbnailImage,
             };
 
-            console.log(values);
-
             try {
               axios.post("http://localhost:8080/api/rooms", temp);
               message.success("Room posted successfully");
