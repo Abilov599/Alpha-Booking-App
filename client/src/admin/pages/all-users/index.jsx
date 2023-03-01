@@ -107,15 +107,11 @@ const AllUsers = () => {
     },
   ];
 
-  // const onChange = (pagination, filters, sorter, extra) => {
-  //   console.log("params", pagination, filters, sorter, extra);
-  // };
   return (
     <div style={{ width: "100%" }}>
       <Table
         columns={columns}
         dataSource={data}
-        // onChange={onChange}
         rowKey="_id"
       />
     </div>

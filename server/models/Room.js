@@ -12,7 +12,7 @@ const roomSchema = new Schema(
     maxChildCount: { type: Number, required: true },
     thumbnailImage: { type: String, required: true },
     images: { type: Array, required: true },
-    currentBookings: { type: Array, required: false },
+    currentBookings: { type: Array, default: [] },
   },
   { timestamps: true }
 );
