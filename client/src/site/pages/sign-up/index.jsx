@@ -3,7 +3,7 @@ import { Field, Form, Formik } from "formik";
 import { message } from "antd";
 import React from "react";
 import { Helmet } from "react-helmet";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { fetchUserAuth } from "./../../../redux/slice/userAuthSlice";
 import { signUpSchema } from "./../../../schema/signUpSchema";
