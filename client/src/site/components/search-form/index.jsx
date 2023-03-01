@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.scss";
-import { DatePicker, Select } from "antd";
+import { DatePicker, message, Select } from "antd";
 import { useLocation, useNavigate } from "react-router-dom";
 import moment from "moment";
 import { useDispatch, useSelector } from "react-redux";
@@ -82,7 +82,8 @@ const SearchForm = () => {
   const checkOutDate = moment(checkOutValue, dateFormatList);
 
   const filterByDates = () => {
-    let tempRooms = [], availability = false;
+    let tempRooms = [],
+      availability = false;
     for (const room of duplicateData) {
       if (room.currentBookings.length > 0) {
         for (const booking of room.currentBookings) {
@@ -122,6 +123,7 @@ const SearchForm = () => {
       checkOutValue &&
       sessionStorage.setItem("formObj", JSON.stringify(obj));
     filterByDates();
+    message.success("Rooms are filtered successfully!");
     if (pathname === "/") {
       navigate("/rooms");
     }
