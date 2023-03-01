@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
+import { message } from "antd";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
@@ -22,6 +23,9 @@ const SignIn = () => {
       const res = await axios.post("http://localhost:8080/api/login", obj, {
         withCredentials: true,
       });
+      if (res.status === 200) {
+        message.success("Logged in successfully");
+      }
     } catch (error) {
       throw error;
     }

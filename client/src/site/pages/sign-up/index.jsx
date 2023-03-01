@@ -1,5 +1,6 @@
 import axios from "axios";
 import { Field, Form, Formik } from "formik";
+import { message } from "antd";
 import React from "react";
 import { Helmet } from "react-helmet";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,7 +10,6 @@ import { signUpSchema } from "./../../../schema/signUpSchema";
 import "./index.scss";
 
 const SignUp = () => {
-  const userState = useSelector((state) => state.userAuthSlice);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const signup = async (values) => {
@@ -20,6 +20,9 @@ const SignUp = () => {
     };
     try {
       const res = await axios.post("http://localhost:8080/api/register", obj);
+      if (res.status === 200) {
+        message.success("Signed up successfully");
+      }
     } catch (error) {
       throw error;
     }
@@ -34,6 +37,9 @@ const SignUp = () => {
       const res = await axios.post("http://localhost:8080/api/login", obj, {
         withCredentials: true,
       });
+      if (res.status === 200) {
+        message.success("Logged in successfully");
+      }
     } catch (error) {
       throw error;
     }
